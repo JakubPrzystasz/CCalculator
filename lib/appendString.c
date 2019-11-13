@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "../calculator.h"
+#include "../inc/calculator.h"
 
 char *appendString(char* string, char* tail){
     if(string != 0) {

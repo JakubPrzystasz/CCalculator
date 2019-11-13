@@ -1,4 +1,4 @@
-#include "../calculator.h"
+#include "../inc/calculator.h"
 
 char **parseExpression(char* expression){
     int count = 0, expLength = strlen(expression);

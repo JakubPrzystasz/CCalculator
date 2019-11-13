@@ -1,11 +1,11 @@
-IDIR =inc
+IDIR=inc/
 CC=gcc
-CFLAGS=-lm -Wall -I$(IDIR)
+CFLAGS=-I$(IDIR)
 
-ODIR=obj
-LDIR =lib
+ODIR=/obj
+LDIR=/lib
 
-LIBS=-lm
+LIBS=-lm -Wall
 
 _DEPS = calculator.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
@@ -13,12 +13,13 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 _OBJ = calculator.o main.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
+FILES = $(wildcard lib/*.c)
 
-$(ODIR)/%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+all: lib.o
+	$(CC) -o main.o $< $(CFLAGS) $(LIBS)
 
-hellomake: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+lib.o:  $(wildcard lib/*.c)
+	$(CC) -c -o $@ $< $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 

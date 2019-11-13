@@ -1,4 +1,7 @@
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 	double compute(char* expression);

@@ -1,4 +1,4 @@
-#include "../calculator.h"
+#include "../inc/calculator.h"
 
 bool isNumber(char* expression){
     //check if the given string is a number

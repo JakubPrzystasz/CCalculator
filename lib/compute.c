@@ -1,4 +1,4 @@
-#include "../calculator.h"
+#include "../inc/calculator.h"
 
 double compute(char* expression){
 	//get expression and compute value

@@ -1,4 +1,4 @@
-#include "../calculator.h"
+#include "../inc/calculator.h"
 
 char **appendArray(char** array,char* string,int* count){
     array = (char **) realloc(array, (*count + 1) * sizeof(*array));
