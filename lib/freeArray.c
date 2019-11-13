@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../calculator.h"
+#include "../inc/calculator.h"
 
 static void freeArray(char** array, size_t size)
 {
