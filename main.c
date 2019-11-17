@@ -2,10 +2,25 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 
 /*
     WYKRYWANIE CZY TO FUNKCJA MATEMATYCZNA (CO ZROBIC Z ARGUMENTAMI?)
 */
+
+double pow(double base,double exponent){
+    if(exponent < 1){
+        return 1;
+    }else{
+        return base * pow(base,exponent-1);
+    }
+}
+
+double fmod(double a,double b){
+    double m = (int)(a / b);
+    double r = m * b;
+    return a - r;
+}
 
 /* DODAJ STRING NA KONIEC TABLICY*/
 char **appendToArray(char** array,char* string,int* count){
@@ -22,7 +37,10 @@ char **appendToArray(char** array,char* string,int* count){
 
 /* EDYTUJ WARTOSC W TABLICY */
 char **editInArray(char **array,char* string,int* count,int index){
-    if(index >= *count){exit(1);}
+    if(index >= *count || index < 0){
+        exit(1);
+    }
+
     array[index] = (char *)realloc(array[index],(strlen((char*)string)+1)*sizeof(char));
     if (array[index] == 0)
         exit(1);
@@ -32,8 +50,12 @@ char **editInArray(char **array,char* string,int* count,int index){
 
 /* DOPISZ DO TABICY WARTOSC WE WSKAZANYM MIEJSCU */
 char **insertToArray(char** array,char* string,int* count,int index){
+    if(index > *count || index < 0){
+        exit(1);
+    }
+
     int length = *count;
-    if(index > length) {exit(1);}
+    if(index < 0) {exit(1);}
     if(index == length) {
         array = appendToArray(array,string,&length);
         *count = length;
@@ -62,6 +84,9 @@ char **insertToArray(char** array,char* string,int* count,int index){
 
 /* USUŃ OSTANIA WARTOŚĆ */
 char **popArray(char** array,int* count){
+    if(*count < 1 || array == NULL){
+        exit(1);
+    }
     free(array[*count-1]);
     array = (char **) realloc(array, (*count - 1) * sizeof(*array));
     *count -= 1;
@@ -70,8 +95,10 @@ char **popArray(char** array,int* count){
 
 /* USUN WARTOSC WE WSKAZANYM INDEKSIE */
 char **removeInArray(char** array,int* count,int index){
+    if(index >= *count || index < 0 || array == NULL){
+        exit(1);
+    }
     int length = *count;
-    if(index >= length){ exit(1);}
     if(index+1 == length) {
         array = popArray(array,&length);
         *count = length;
@@ -111,9 +138,11 @@ char *appendToString(char* string, char* tail){
 /* ZWOLNIJ PAMIEC Z TABICY */
 static void freeArray(char** array, size_t size)
 {
-    for (int i = 0; i < size; i++)
-        free(array[i]);
-    free(array);
+    if(array != NULL){
+        for (int i = 0; i < size; i++)
+            free(array[i]);
+        free(array);
+    }
 }
 
 /* CZY TO CYFRA */
@@ -147,6 +176,37 @@ bool isNumber(char* expression){
     return flag;
 }
 
+char* doMath(int operator,char* arg1,char* arg2){
+    double value = 0;
+    char* result = 0;
+    result = appendToString(result,"");
+    double ARG1 = atof(arg1);
+    double ARG2 = atof(arg2);
+
+    switch (operator){
+        case 0:
+            value = ARG2 + ARG1;
+            break;
+        case 1:
+            value = ARG2 - ARG1;
+            break;
+        case 2:
+            value = ARG2 * ARG1;
+            break;
+        case 3:
+            value = ARG2 / ARG1;
+            break;
+        case 4:
+            value = pow(ARG2,ARG1);
+            break;
+        case 5:
+            value = fmod(ARG2,ARG1);
+            break;
+    }
+    sprintf(result,"%lf",value);
+    return result;
+}
+
 /* SPRAWDZ CZY CIAG JEST OPERATOREM */
 int getOperator(char* expression){
     if(strlen(expression) > 2){ return -1;}
@@ -175,7 +235,7 @@ int getOperator(char* expression){
     return -1;
 }
 
-int getOperatorPriotiy(int operator){
+int getOperatorPriority(int operator){
     /*
     Operator 	Priorytet
 
@@ -297,14 +357,13 @@ char **parseExpression(char* expression,int* length){
 
 /* CONVERT INFIX EXPRESSION TO POSTFIX EXPRESSION */
 char **toPOSTFIX(char** expressionArray,int* length){
-    char* input = 0;
     //queue
     char** output = 0;
     //stack
     char** stack = 0;
     int countOutput = 0, countStack = 0, stackI = 0;
 
-//DEBUG
+/*DEBUG*/
 /*
     for (int i = 0; i < *length; i++) {
         printf("[%d]{%d}-> %s\n",i,strlen(expressionArray[i]),expressionArray[i]);
@@ -313,6 +372,18 @@ char **toPOSTFIX(char** expressionArray,int* length){
 /*DEBUG*/
 
     for(int i=0;i<*length;i++){
+
+
+//        printf("(%d)EXPRESSION:%s\nSTACK:",i,expressionArray[i]);
+//        for(int x=0;x<countStack;x++){
+//            printf("%s ",stack[x]);
+//        }
+//        printf("\nQUEUE:");
+//        for(int x=0;x<countOutput;x++){
+//            printf("%s ",output[x]);
+//        }
+//        printf("\n");
+
 
         if(isNumber(expressionArray[i])){
             output = appendToArray(output,expressionArray[i],&countOutput);
@@ -324,31 +395,19 @@ char **toPOSTFIX(char** expressionArray,int* length){
             continue;
         }
 
-        if(getOperatorPriotiy(expressionArray[i]) == 8){
+        if(getOperator(expressionArray[i]) == 8){
             stackI = countStack - 1;
             while(getOperator(stack[stackI]) != 6){
                 output = appendToArray(output,stack[stackI],&countOutput);
                 stack = popArray(stack,&countStack);
                 stackI -= 1;
             }
+            continue;
         }
 
         if(getOperator(expressionArray[i]) == 6){
             stack = appendToArray(stack,expressionArray[i],&countStack);
-        }
-
-        if(countStack > 0 && getOperator(expressionArray[i]) >= 0 && 6 > getOperator(expressionArray[i])){
-            stackI = countStack - 1;
-            int oper1 = getOperator(expressionArray[i]);
-            int oper2 = getOperator(stack[stackI]);
-            int p1 = getOperatorPriotiy(oper1);
-            int p2 = getOperatorPriotiy(oper2);
-            while(p1 <= p2){
-                output = appendToArray(output,stack[stackI],&countOutput);
-                stack = popArray(stack,&countStack);
-                stackI -= 1;
-            }
-            output = appendToArray(output,expressionArray[i],&countOutput);
+            continue;
         }
 
         if(getOperator(expressionArray[i]) == 7){
@@ -358,108 +417,104 @@ char **toPOSTFIX(char** expressionArray,int* length){
                 stack = popArray(stack,&countStack);
                 stackI -= 1;
             }
+            stack = popArray(stack,&countStack);
+            continue;
         }
 
-//
-//        if(getOperator(expressionArray[i]) == 6){
-//            stack = appendToArray(stack,expressionArray[i],&countStack);
-//            continue;
-//        }
-//
-//        if(getOperator(expressionArray[i]) == 7){
-//            stackI = countStack - 1;
-//            while(true){
-//                if(stackI == 0){break;}
-//                if(getOperator(stack[stackI]) == 6){
-//                    stack = popArray(stack,&countStack);
-//                    break;
-//                }
-//                output = appendToArray(output,stack[stackI],&countOutput);
-//                stack = popArray(stack,&countStack);
-//                stackI -= 1;
-//            }
-//            continue;
-//        }
-//
-//        if(getOperator(expressionArray[i]) >= 0 && 5 >= getOperator(expressionArray[i])){
-//
-//            if(countStack == 0){
-//                stack = appendToArray(stack,expressionArray[i],&countStack);
-//                continue;
-//            }
-//            if(getOperatorPriotiy(getOperator(expressionArray[i])) > getOperatorPriotiy(*stack[countStack-1])){
-//                stack = appendToArray(stack,expressionArray[i],&countStack);
-//                continue;
-//            }
-//            stackI = countStack -1;
-//            do{
-//                output = appendToArray(output,stack[stackI],&countOutput);
-//                stack = popArray(stack,&countStack);
-//                stackI -= 1;
-//            }
-//            while(countStack > 0 && getOperatorPriotiy(*stack[stackI]));
-//            continue;
-//        }
+        if(getOperator(expressionArray[i]) >= 0 && 5 >= getOperator(expressionArray[i])) {
+            stackI = countStack - 1;
+            //stos pusty lub priorytet jest wiekszy
+            if(countStack == 0){
+                stack = appendToArray(stack,expressionArray[i],&countStack);
+                continue;
+            }
+            if(getOperatorPriority(getOperator(stack[stackI])) < getOperatorPriority(getOperator(expressionArray[i]))){
+                stack = appendToArray(stack,expressionArray[i],&countStack);
+                continue;
+            }else{
+                //wiekszy lub rowny priorytet na stosie
+                for(stackI;stackI >= 0;stackI--){
+                    if(getOperatorPriority(getOperator(stack[stackI])) < getOperatorPriority(getOperator(expressionArray[i]))){
+                        stack = appendToArray(stack,expressionArray[i],&countStack);
+                        break;
+                    }else{
+                        output = appendToArray(output,stack[stackI],&countOutput);
+                        stack = popArray(stack,&countStack);
+                    }
+                }
+            }
+        }
     }
-    stackI = countStack - 1;
-    do{
-        output = appendToArray(output,stack[stackI],&countOutput);
-        stack = popArray(stack,&countStack);
-        stackI -= 1;
-    }while(countStack > 0);
 
-    printf("STACK:");
-    for(int i=0;i<countStack;i++){
-        printf("%s ",stack[i]);
+    //ZWOLNIJ ELEMENTY ZE STOSU I PRZEKARZ DO WYJSCIA
+    stackI = countStack - 1;
+    while (countStack > 0){
+        output = appendToArray(output, stack[stackI], &countOutput);
+        stack = popArray(stack, &countStack);
+        stackI -= 1;
     }
-    printf("\n");
-    for(int i=0;i<countOutput;i++){
-        printf("%s ",output[i]);
-    }
-    printf("\n");
+
+//    printf("STACK:");
+//    for(int i=0;i<countStack;i++){
+//        printf("%s ",stack[i]);
+//    }
+//    printf("\n");
+//    for(int i=0;i<countOutput;i++){
+//        printf("%s ",output[i]);
+//    }
+//    printf("\n");
+    *length = countOutput;
+    return output;
 }
 
 /*DO THE MATH*/
 double compute(char** expressionArray,int* length){
+    char** stack = 0;
+    int countStack = 0;
+    char* arg1 = 0;
+    char* arg2 = 0;
+    double result = 0;
 
+    for(int i=0;i<*length;i++){
+        if(isNumber(expressionArray[i])){
+            stack = appendToArray(stack,expressionArray[i],&countStack);
+            continue;
+        }
+
+        if(getOperator(expressionArray[i]) >= 0 && 5 >= getOperator(expressionArray[i]) && countStack > 1){
+
+            arg1 = appendToString(arg1,stack[countStack-1]);
+            stack = popArray(stack,&countStack);
+            arg2 = appendToString(arg2,stack[countStack-1]);
+            stack = popArray(stack,&countStack);
+
+            stack = appendToArray(stack,doMath(getOperator(expressionArray[i]),arg1,arg2),&countStack);
+        }
+    }
+    result = atof(stack[0]);
+    freeArray(stack,countStack);
+    return  result;
 }
 
 /*CALCULATE MATH EXPRESSION*/
 double calculate(char* expression,int* length){
-
     char** expressionArray = parseExpression(expression,length);
     expressionArray = toPOSTFIX(expressionArray,length);
-
-    return 0;
+    double result = compute(expressionArray,length);
+    //WTF NOT WORKING XD
+    //freeArray(expressionArray,length);
+    return result;
 }
 
 
 int main(int argc, char** argv) {
-
-    int length=0;
-    char *input = 0;
-    input = appendToString(input,"3+4*2/(1-5)^2\0");
-    length = strlen(input);
-    double x = calculate(input,&length);
-    printf("3 4 2 * 1 5 - 2 ^ / +\n");
-
-
-/* TO NA ODCZYT Z LINII POLECEN */
-//    char* inputString;
-//    size_t inputStringSize;
-//    char* str = (char*)malloc(30 * sizeof(char));
-//    strcpy(str,"Ala ");
-//    char *strFrom = "ma kota\n";   // zapisujemy wskaznik na napis
-//    strcat (str, strFrom);
-//    printf("%s",str);
-//    free(str);
-    //READ ARGS FROM COMMAND LINE
-    //printf("%s",argv[1]);
-//    printf("INPUT:");
-//    if(getline(&inputString, &inputStringSize, stdin) != (-1))
-//    {
-//        printf("RESULT: %lf\n",compute(inputString));
-//    }
-
+    if(argc == 2) {
+        int length = 0;
+        char *input = 0;
+        input = appendToString(input, argv[1]);
+        length = strlen(input);
+        double x = calculate(input, &length);
+        printf("%lf\n", x);
+    }
     return 0;
 }
