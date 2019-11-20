@@ -23,7 +23,7 @@ double fmod(double a,double b){
 }
 
 /* DODAJ STRING NA KONIEC TABLICY*/
-char **appendToArray(char** array,char* string,int* count){
+char** appendToArray(char** array,char* string,int* count){
     array = (char **) realloc(array, (*count + 1) * sizeof(*array));
     if (array == NULL)
         exit(1);
@@ -36,7 +36,7 @@ char **appendToArray(char** array,char* string,int* count){
 }
 
 /* EDYTUJ WARTOSC W TABLICY */
-char **editInArray(char **array,char* string,int* count,int index){
+char** editInArray(char **array,char* string,int* count,int index){
     if(index >= *count || index < 0){
         exit(1);
     }
@@ -454,17 +454,22 @@ char **toPOSTFIX(char** expressionArray,int* length){
         stackI -= 1;
     }
 
-//    printf("STACK:");
-//    for(int i=0;i<countStack;i++){
-//        printf("%s ",stack[i]);
-//    }
-//    printf("\n");
-//    for(int i=0;i<countOutput;i++){
-//        printf("%s ",output[i]);
-//    }
-//    printf("\n");
+    /*
+   printf("STACK:");
+   for(int i=0;i<countStack;i++){
+       printf("%s ",stack[i]);
+   }
+   printf("\n");
+   for(int i=0;i<countOutput;i++){
+       printf("%s ",output[i]);
+    }
+    printf("\n");
+    */
+
     *length = countOutput;
+
     return output;
+
 }
 
 /*DO THE MATH*/
@@ -476,21 +481,40 @@ double compute(char** expressionArray,int* length){
     double result = 0;
 
     for(int i=0;i<*length;i++){
+        for(int x=0;x<countStack;x++){
+            printf("%s,",stack[x]);
+        }
+        printf("EXP:%s",expressionArray[i]);
+    
+        printf("\n");
+
+        if(countStack > 0){
+            arg1 = appendToString(arg1,stack[countStack-1]);
+        }
+        if(countStack > 1){
+            arg2 = appendToString(arg2,stack[countStack-2]);
+            printf("ARGS:%s   %s\n",arg1,arg2,expressionArray[i],doMath(getOperator(expressionArray[i]),arg1,arg2));
+        }
+
         if(isNumber(expressionArray[i])){
             stack = appendToArray(stack,expressionArray[i],&countStack);
             continue;
         }
 
         if(getOperator(expressionArray[i]) >= 0 && 5 >= getOperator(expressionArray[i]) && countStack > 1){
-
-            arg1 = appendToString(arg1,stack[countStack-1]);
             stack = popArray(stack,&countStack);
-            arg2 = appendToString(arg2,stack[countStack-1]);
             stack = popArray(stack,&countStack);
-
             stack = appendToArray(stack,doMath(getOperator(expressionArray[i]),arg1,arg2),&countStack);
+
+            /*printf("STACK:\n");            
+            for(int x=0;x<countStack;x++){
+                //printf("%s\n",stack[x]);
+            }
+            */
+            
         }
     }
+
     result = atof(stack[0]);
     freeArray(stack,countStack);
     return  result;
@@ -501,20 +525,18 @@ double calculate(char* expression,int* length){
     char** expressionArray = parseExpression(expression,length);
     expressionArray = toPOSTFIX(expressionArray,length);
     double result = compute(expressionArray,length);
-    //WTF NOT WORKING XD
-    //freeArray(expressionArray,length);
     return result;
 }
 
 
 int main(int argc, char** argv) {
-    if(argc == 2) {
-        int length = 0;
-        char *input = 0;
-        input = appendToString(input, argv[1]);
-        length = strlen(input);
-        double x = calculate(input, &length);
-        printf("%lf\n", x);
-    }
+
+    int length = strlen(argv[1]);
+    char *input = 0;
+    printf("%s\n",argv[1]);
+    input = appendToString(input,argv[1]);
+    double x = calculate(input,&length);
+    printf("%lf\n", x);
+    
     return 0;
 }
