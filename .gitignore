@@ -50,3 +50,12 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+*.exe
+Debug/Kalkulator.tlog/unsuccessfulbuild
+Debug/Kalkulator.tlog/link.write.1.tlog
+*.tlog
+*.log
+*.xml
+*.xml
+.idea/modules.xml
+.idea/vcs.xml
