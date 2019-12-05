@@ -1,21 +1,24 @@
 #include <stdbool.h>
 #include <stdlib.h>
+
+#ifndef CALCULATOR_H
 #define CALCULATOR_H
 
-	static void freeArray(char** array, size_t size);
-	int appendToString(char* string, char* tail);
-	int pushBackArray(char** array, char* string, int* count);
-	int editArray(char** array, char* string, int* count, int index);
-	int removeInArray(char** array, int* count, int index);
-	int popArray(char** array, int* count);
-	int insertToArray(char** array, char* string, int* count, int index);
-	int parseExpression(char* expression, int* length);
-	bool isNumber(char* expression);
-	bool isDigit(char* expression);
-	int toPOSTFIX(char** expressionArray, int* length);
-	double compute(char** expressionArray, int* length);
+	void freeArray(char** array, size_t size);
+    char* appendToString(char* string, char* value);
+    char** popArray(char** array, int* count);
+	char** appendToArray(char** array, char* string, int* count);
+	char** insertToArray(char** array, char* string, int* count, int index);
+	char** editInArray(char** array, char* string, int* count, int index);
+	char** removeInArray(char** array, int* count, int index);
+	char** parseExpression(char* expression, int* length);
+	char** toRPN(char** expressionArray, int* length);
 	int doMath(int operator,char* arg1, char* arg2);
 	int getOperator(char* expression);
 	int getOperatorPriority(int* operator);
 	bool isFunction(char* expression);
+	bool isNumber(char* expression);
+	bool isDigit(char* expression);
 	double compute(char** expressionArray, int* length);
+	double calculate(char* expression, int* length);
+#endif

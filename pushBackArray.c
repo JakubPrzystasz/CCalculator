@@ -6,7 +6,7 @@
 
 
 /* DODAJ STRING NA KONIEC TABLICY*/
-int pushBackArray(char** array, char* string, int* count) {
+char** pushBackArray(char** array, char* string, int* count) {
 	array = (char**)realloc(array, (*count + 1) * sizeof(*array));
 	if (array == NULL)
 		exit(1);

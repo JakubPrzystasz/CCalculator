@@ -4,32 +4,36 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* USUN WARTOSC WE WSKAZANYM INDEKSIE */
-int removeInArray(char** array, int* count, int index) {
+/* REMOVE VALUE AT GIVEN INDEX */
+char** removeInArray(char** array, int* count, int index) {
 	if (index >= *count || index < 0 || array == NULL) {
-		exit(1);
+		return 1;
 	}
+
+	//just pop value
 	int length = *count;
 	if (index + 1 == length) {
-		array = popArray(array, &length);
+		if (popArray(array, &length) != 0) {
+			return 1;
+		}
+
 		*count = length;
-		return array;
 	}
 
 	free(array[index]);
 
 	char** tempArray = 0;
 	int countTemp = 0;
-	for (int i = 1;i < (length - index);i++) {
-		tempArray = appendToArray(tempArray, array[index + i], &countTemp);
+	for (int i = 0;i < length;i++) {
+		if (i == index) {
+			continue;
+		}
+		if (appendToArray(tempArray, array[i], &countTemp) != 0) {
+			return 1;
+		}
 	}
+	
+	array = tempArray;
 
-	array = (char**)realloc(array, (length - 1) * sizeof(*array));
-
-	for (int i = 0;i + 1 < (length - index);i++) {
-		array = editInArray(array, tempArray[i], &length, i + index);
-	}
-
-	*count = length - 1;
-	return array;
+	return 0;
 }

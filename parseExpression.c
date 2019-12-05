@@ -6,14 +6,13 @@
 #include <string.h>
 
 /* ROZBIERZ WPROWADZONY CIAG ZNAKOW NA TABLICE WYRAZEN */
-int parseExpression(char* expression, int* length) {
+char** parseExpression(char* expression, int* length) {
 	int count = 0;
 	char* string = 0;
 	char** array = 0;
 	char char1 = 0, char2 = 0;
 	//0 - number; 1- function
 	bool expType = 0;
-
 
 	if (expression[0] == '-') { array = appendToArray(array, "0", &count); }
 	//dodawaj do stringa dopóki nie napotkasz czegos co nie jest cyfra

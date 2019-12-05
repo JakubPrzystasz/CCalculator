@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "calculator.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 
 int doMath(int operator,char* arg1, char* arg2) {

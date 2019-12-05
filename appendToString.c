@@ -3,21 +3,31 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* DOPISZ WARTOSC NA KONIEC STRINGA */
-
-int appendToString(char* string, char* tail) {
-	if (string != 0) {
-		string = (char*)realloc(string, (strlen((char*)string) + 2) * sizeof(char));
+/* APPEND VALUE TO STRING */
+char* appendToString(char* string, char* value) {
+	//INITIALIZE NEW STRING
+	if (string == NULL) {
+		int r = strlen(value);
+        string = (char*)calloc(strlen(value)+1, sizeof(char));
 		if (string == NULL) {
 			return -1;
 		}
-		string = strcat(string, tail);
+		string = strcpy(string, value);
 	} else {
-		string = (char*)malloc(strlen(tail) * sizeof(char));
-		if (string == NULL) {
+    //APPEND VALUE TO EXISITING STRING
+		char* tmpString = (char*) malloc((strlen((char*)string) + 2) * sizeof(char));
+		if (tmpString == NULL) {
 			return -1;
 		}
-		string = strcpy(string, tail);
+		tmpString = strcpy(tmpString, string);
+		tmpString = strcat(tmpString, value);
+
+		if(tmpString == NULL){
+            return -1;
+		}
+
+		free(string);
+		string = tmpString;
 	}
-	return 0;
+	return string;
 }
