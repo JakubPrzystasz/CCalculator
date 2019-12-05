@@ -7,15 +7,22 @@
 /* REMOVE LAST VALUE OF ARRAY */
 char** popArray(char** array, int* count) {
 	if (array == NULL || *count < 1) {
-        return 1;
+		return NULL;
 	}
-	free(array[*count - 1]);
+
 	char** tmpArray = array;
+	char* tmpVal = array[*count - 1];
+	free(array[(*count - 1)]);
+
 	array = (char**)realloc(array, (*count - 1) * sizeof(*array));
+	
 	if(array == NULL){
-        array = tmpArray;
-        return 1;
+		freeArray(tmpArray,*count);
+		free(tmpVal);
+		return NULL;
 	}
+
 	*count -= 1;
-	return 0;
+
+	return array;
 }

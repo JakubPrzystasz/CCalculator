@@ -24,9 +24,6 @@
     <ClCompile Include="calculate.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="compute.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="doMath.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
@@ -70,6 +67,12 @@
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="editInArray.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="computeRPN.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="printArray.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>

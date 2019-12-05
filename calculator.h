@@ -5,7 +5,8 @@
 #define CALCULATOR_H
 
 	void freeArray(char** array, size_t size);
-    char* appendToString(char* string, char* value);
+	void printArray(char** array, int* count);
+	char* appendToString(char* string, char* value);
     char** popArray(char** array, int* count);
 	char** appendToArray(char** array, char* string, int* count);
 	char** insertToArray(char** array, char* string, int* count, int index);
@@ -19,6 +20,7 @@
 	bool isFunction(char* expression);
 	bool isNumber(char* expression);
 	bool isDigit(char* expression);
-	double compute(char** expressionArray, int* length);
+	double computeRPN(char** expressionArray, int* length);
 	double calculate(char* expression, int* length);
+
 #endif

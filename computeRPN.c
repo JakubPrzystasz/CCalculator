@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <math.h>
 
-/*DO THE MATH*/
-double compute(char** expressionArray, int* length) {
+/* Compute value of RPN expression */
+double computeRPN(char** expressionArray, int* length) {
 	char** stack = 0;
 	int countStack = 0;
 	char* arg1 = 0;

@@ -6,34 +6,50 @@
 
 /* REMOVE VALUE AT GIVEN INDEX */
 char** removeInArray(char** array, int* count, int index) {
-	if (index >= *count || index < 0 || array == NULL) {
-		return 1;
+	if (array == NULL) {
+		return NULL;
 	}
 
-	//just pop value
+	if (index > *count || index < 0 || *count < 1) {
+		return array;
+	}
+
 	int length = *count;
-	if (index + 1 == length) {
-		if (popArray(array, &length) != 0) {
-			return 1;
+
+	//pop value 
+	if (index + 1 == *count) {
+		array = popArray(array, &length);
+
+		if (array == NULL) {
+			return NULL;
 		}
 
 		*count = length;
+
+		return array;
+	}
+
+	int tmpSize = *count - 1;
+	char** tmpArray = malloc(tmpSize * sizeof(*array));
+
+	if (tmpArray == NULL) {
+		freeArray(array, length);
+		return NULL;
+	}
+
+	//copy first part of array
+	for (int i = 0;i < index;i++) {
+		tmpArray[i] = array[i];
+	}
+	
+	//copy second part of array 
+	for (int i = index;i < length-(index);i++) {
+		tmpArray[i] = array[i + 1];
 	}
 
 	free(array[index]);
 
-	char** tempArray = 0;
-	int countTemp = 0;
-	for (int i = 0;i < length;i++) {
-		if (i == index) {
-			continue;
-		}
-		if (appendToArray(tempArray, array[i], &countTemp) != 0) {
-			return 1;
-		}
-	}
-	
-	array = tempArray;
+	*count = tmpSize;
 
-	return 0;
+	return tmpArray;
 }

@@ -6,34 +6,41 @@
 /* APPEND STRING TO END OF ARRAY */
 char** appendToArray(char** array, char* string,int* count) {
     if (string == NULL){
-        return 1;
-    }
+		freeArray(array, *count);
+		return NULL;
+	}	
 
     //initialize new array
     if (array == NULL){
         array = (char **) malloc(sizeof(*array));
         if(array == NULL){
-            return 1;
+			return NULL;
         }
         array[0] = (char *)malloc((strlen((char*)string)+1)*sizeof(char));
         if(array[0] == NULL){
-            return 1;
+			free(array);
+			return NULL;
         }
     }
 
-    //append vale in existing array
+    //append value in existing array
     char** tmpArray = array;
 	array = (char **) realloc(array, (*count + 1) * sizeof(*array));
 	if(array == NULL){
-		array = tmpArray;
-        return 1;
+		freeArray(tmpArray,*count);
+		return NULL;
 	}
+
     array[*count] = (char *)malloc((strlen((char*)string)+1)*sizeof(char));
-    if (array == NULL){
-        return 1;
+    
+	if (array[*count] == NULL){
+		freeArray(array,*count);
+		return NULL;
     }
 
     strcpy(array[*count],string);
-    *count = *count + 1;
-    return 0;
+
+	*count += 1;
+
+	return array;
 }

@@ -7,8 +7,7 @@
 char* appendToString(char* string, char* value) {
 	//INITIALIZE NEW STRING
 	if (string == NULL) {
-		int r = strlen(value);
-        string = (char*)calloc(strlen(value)+1, sizeof(char));
+        string = (char*)malloc((strlen(value)+1)*sizeof(char));
 		if (string == NULL) {
 			return -1;
 		}

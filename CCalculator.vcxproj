@@ -126,7 +126,7 @@
     <ClCompile Include="appendToArray.c" />
     <ClCompile Include="appendToString.c" />
     <ClCompile Include="calculate.c" />
-    <ClCompile Include="compute.c" />
+    <ClCompile Include="computeRPN.c" />
     <ClCompile Include="doMath.c" />
     <ClCompile Include="editInArray.c" />
     <ClCompile Include="freeArray.c" />
@@ -139,6 +139,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="parseExpression.c" />
     <ClCompile Include="popArray.c" />
+    <ClCompile Include="printArray.c" />
     <ClCompile Include="pushBackArray.c" />
     <ClCompile Include="removeInArray.c" />
     <ClCompile Include="toRPN.c" />
