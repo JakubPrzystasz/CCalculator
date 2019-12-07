@@ -5,6 +5,10 @@
 
 /* APPEND STRING TO END OF ARRAY */
 char** appendToArray(char** array, char* string,int* count) {
+	if (*count < 0) {
+		return NULL;
+	}
+
     if (string == NULL){
 		freeArray(array, *count);
 		return NULL;

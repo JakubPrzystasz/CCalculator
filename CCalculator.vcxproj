@@ -132,6 +132,7 @@
     <ClCompile Include="freeArray.c" />
     <ClCompile Include="getOperator.c" />
     <ClCompile Include="getOperatorPriority.c" />
+    <ClCompile Include="getOperatorTie.c" />
     <ClCompile Include="insertToArray.c" />
     <ClCompile Include="isDigit.c" />
     <ClCompile Include="isFunction.c" />

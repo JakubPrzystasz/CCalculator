@@ -5,6 +5,13 @@
 
 /* APPEND VALUE TO STRING */
 char* appendToString(char* string, char* value) {
+	if (value == NULL) {
+		if (string != NULL) {
+			free(string);
+		}
+		
+		return NULL;
+	}
 	//INITIALIZE NEW STRING
 	if (string == NULL) {
         string = (char*)malloc((strlen(value)+1)*sizeof(char));

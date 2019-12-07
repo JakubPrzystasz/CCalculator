@@ -6,18 +6,13 @@
 
 int main(int argc, char** argv)
 {
-	char* expression = 0;
-	expression = appendToString(expression,"-23+3");
-	double x = 0;
-	x = calculate(expression);
-	printf("%lf\n",x);
-	//if (argc > 1) {
-	//	char* expression = 0;
-	//	expression = appendToString(expression, argv[1]);
-	//	int length = strlen(expression);
-	//	double value = 0;
-	//	value = calculate(expression, &length);
-	//	printf("%lf", value);
-	//}
+	if (argc > 1) {
+		char* expression = 0;
+		expression = appendToString(expression, argv[1]);
+		char** expressionArray = 0;
+		double x = 0;
+		x = calculate(expression);
+		printf("RESULT:\n%.2lf\n", x);
+	}
 	return 0;
 }

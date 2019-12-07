@@ -10,7 +10,7 @@ char** toRPN(char** expressionArray, int* length) {
 	//stack
 	char** stack = 0;
 
-	int outputSize = 0, stackSize = 0;
+	int outputSize = 0, stackSize = 0, o1 = -1, o2 = -1;
 
 	for (int index = 0;index < *length;index++) {
 
@@ -83,7 +83,6 @@ char** toRPN(char** expressionArray, int* length) {
 					}
 				}
 			}
-
 			continue;
 		}
 
@@ -99,31 +98,46 @@ char** toRPN(char** expressionArray, int* length) {
 			2) w³ó¿ o1 na stos operatorów.
 		*/
 		if (getOperator(expressionArray[index]) >= 0 && 5 >= getOperator(expressionArray[index])) {
-			//stos pusty lub priorytet jest wiekszy
+			//stos pusty 
 			if (stackSize == 0) {
 				stack = appendToArray(stack, expressionArray[index], &stackSize);
 				continue;
 			}
-			if (getOperatorPriority(getOperator(stack[stackSize-1])) < getOperatorPriority(getOperator(expressionArray[index]))) {
+			
+			o1 = getOperator(expressionArray[index]);
+			o2 = getOperator(stack[stackSize - 1]);
+			
+			//priorytet o1, jest wieszy od priorytetu o2
+			if (getOperatorPriority(o1) > getOperatorPriority(o2)) {
 				stack = appendToArray(stack, expressionArray[index], &stackSize);
 				continue;
-			} else {
-				//wiekszy lub rowny priorytet na stosie
-				for (int i = stackSize - 1;i >= 0;i--) {
-					if (getOperatorPriority(getOperator(stack[i])) < getOperatorPriority(getOperator(expressionArray[index]))) {
-						stack = appendToArray(stack, expressionArray[index], &stackSize);
-						break;
-					} else {
+			}
+
+			//wiekszy lub rowny priorytet na stosie
+			for (int i = stackSize - 1;i >= 0;i--) {
+				
+				//lewostronnie ³¹czny
+				if (getOperatorTie(o1) == 0) {
+					if (getOperatorPriority(o1) <= getOperatorPriority(o2)) {
 						output = appendToArray(output, stack[i], &outputSize);
 						stack = popArray(stack, &stackSize, false);
 					}
 				}
-			}
-		}
-		
-		printArray(output, &outputSize);
-		printArray(stack, &stackSize);
 
+				//prawostronnie ³¹czny
+				if (getOperatorTie(o1) == 1) {
+					if (getOperatorPriority(o1) < getOperatorPriority(o2)) {
+						output = appendToArray(output, stack[i], &outputSize);
+						stack = popArray(stack, &stackSize, false);
+					}
+				}
+
+			}
+
+			stack = appendToArray(stack, expressionArray[index], &stackSize);
+		}
+
+		//end of loop 
 	}
 
 	/*

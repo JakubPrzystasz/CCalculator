@@ -18,6 +18,7 @@
 	int doMath(int operator,char* arg1, char* arg2);
 	int getOperator(char* expression);
 	int getOperatorPriority(int operator);
+	int getOperatorTie(int operator);
 	bool isFunction(char* expression);
 	bool isNumber(char* expression);
 	bool isDigit(char expression);

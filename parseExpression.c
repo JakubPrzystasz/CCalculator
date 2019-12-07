@@ -18,7 +18,7 @@ char** parseExpression(char* expression, int* length) {
 	//dodawaj do stringa dopóki nie napotkasz czegos co nie jest cyfra
 	for (int i = 0; i < *length; i++) {
 		char char1[2] = { expression[i],'\0' };
-		if (i == 0) {
+		if (i == 0 && char1[0] == '-') {
 			array = appendToArray(array, "0", &count);
 		}
 
