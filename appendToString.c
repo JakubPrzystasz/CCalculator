@@ -9,20 +9,20 @@ char* appendToString(char* string, char* value) {
 	if (string == NULL) {
         string = (char*)malloc((strlen(value)+1)*sizeof(char));
 		if (string == NULL) {
-			return -1;
+			return  NULL;
 		}
 		string = strcpy(string, value);
 	} else {
     //APPEND VALUE TO EXISITING STRING
-		char* tmpString = (char*) malloc((strlen((char*)string) + 2) * sizeof(char));
+		char* tmpString = (char*) malloc((strlen((char*)string) + 1) * sizeof(char));
 		if (tmpString == NULL) {
-			return -1;
+			return  NULL;
 		}
 		tmpString = strcpy(tmpString, string);
 		tmpString = strcat(tmpString, value);
 
 		if(tmpString == NULL){
-            return -1;
+			return NULL;
 		}
 
 		free(string);

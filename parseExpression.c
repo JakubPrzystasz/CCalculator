@@ -5,8 +5,9 @@
 #include <stdbool.h>
 #include <string.h>
 
-/* ROZBIERZ WPROWADZONY CIAG ZNAKOW NA TABLICE WYRAZEN */
+/* PARSE STRING TO ARRAY OF MATH EXPRESSIONS */
 char** parseExpression(char* expression, int* length) {
+
 	int count = 0;
 	char* string = 0;
 	char** array = 0;
@@ -14,10 +15,12 @@ char** parseExpression(char* expression, int* length) {
 	//0 - number; 1- function
 	bool expType = 0;
 
-	if (expression[0] == '-') { array = appendToArray(array, "0", &count); }
 	//dodawaj do stringa dopóki nie napotkasz czegos co nie jest cyfra
 	for (int i = 0; i < *length; i++) {
 		char char1[2] = { expression[i],'\0' };
+		if (i == 0) {
+			array = appendToArray(array, "0", &count);
+		}
 
 		if (getOperator(char1) >= 0) {
 			//natrafiono na operator
@@ -26,8 +29,7 @@ char** parseExpression(char* expression, int* length) {
 				string = 0;
 			}
 			array = appendToArray(array, char1, &count);
-		}
-		else {
+		} else {
 			if (string != 0) {
 				if (!isNumber(char1) && expType == 0) {
 					array = appendToArray(array, string, &count);
@@ -44,8 +46,7 @@ char** parseExpression(char* expression, int* length) {
 				else {
 					string = appendToString(string, char1);
 				}
-			}
-			else {
+			} else {
 				string = appendToString(string, char1);
 				if (isNumber(string)) {
 					expType = 0;
@@ -64,6 +65,7 @@ char** parseExpression(char* expression, int* length) {
 		/* DEBUG */
 
 	}
+
 	//wrzuc to co zostalo w temp do tablicy
 	if (string != 0) {
 		array = appendToArray(array, string, &count);
@@ -90,6 +92,7 @@ char** parseExpression(char* expression, int* length) {
 	   }
 
 /* *DEBUG*     *DEBUG*   *DEBUG* */
+
 	*length = count;
 	return array;
 }

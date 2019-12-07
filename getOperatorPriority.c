@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "calculator.h"
 
-int getOperatorPriority(int *operator) {
+int getOperatorPriority(int operator) {
 	/*
 	Operator 	Priorytet
 
@@ -11,7 +11,7 @@ int getOperatorPriority(int *operator) {
 	^ 	        3
 
 	*/
-	switch ((*operator)) {
+	switch (operator) {
 	case 6:
 		return 0;
 	case 0: case 1: case 7:

@@ -1,33 +1,23 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "calculator.h"
 
-int main()
+int main(int argc, char** argv)
 {
-	char* str = 0;
-	str = appendToString(str, "Hello");
-	str = appendToString(str, "World!");
-	int arraySize = 0;
-	char** array = 0;
-	array = appendToArray(array, str, &arraySize);
-	array = appendToArray(array, "FOO", &arraySize);
-	array = appendToArray(array, "BAR", &arraySize);
-	array = appendToArray(array, "RAR", &arraySize);
-
-	printf("Before insertion at 1\n");
-	printArray(array, &arraySize);
-	array = insertToArray(array, "INSERTED", &arraySize, 1);
-
-	printf("After insertion at 1, before remove at 1\n");
-	printArray(array, &arraySize);
-	array = removeInArray(array, &arraySize, 1);
-
-	printf("After remove at 1, before edit at 1\n");
-	printArray(array, &arraySize);
-	array = editInArray(array, "EDITED", &arraySize, 1);
-
-	printf("After edit at 1\n");
-	printArray(array, &arraySize);
-
+	char* expression = 0;
+	expression = appendToString(expression,"-23+3");
+	double x = 0;
+	x = calculate(expression);
+	printf("%lf\n",x);
+	//if (argc > 1) {
+	//	char* expression = 0;
+	//	expression = appendToString(expression, argv[1]);
+	//	int length = strlen(expression);
+	//	double value = 0;
+	//	value = calculate(expression, &length);
+	//	printf("%lf", value);
+	//}
 	return 0;
 }

@@ -7,47 +7,58 @@
 /* Compute value of RPN expression */
 double computeRPN(char** expressionArray, int* length) {
 	char** stack = 0;
-	int countStack = 0;
+	int stackSize = 0;
 	char* arg1 = 0;
 	char* arg2 = 0;
+
 	double result = 0;
 
-	for (int i = 0;i < *length;i++) {
-		for (int x = 0;x < countStack;x++) {
-			printf("%s,", stack[x]);
-		}
-		printf("EXP:%s", expressionArray[i]);
+	/*
+	    Dla wszystkich symboli z wyra¿enia ONP wykonuj:
+        jeœli i-ty symbol jest liczb¹, to od³ó¿ go na stos,
+        jeœli i-ty symbol jest operatorem to:
+            zdejmij ze stosu jeden element (ozn. a),
+            zdejmij ze stosu kolejny element (ozn. b),
+            od³ó¿ na stos wartoœæ b operator a.
+        jeœli i-ty symbol jest funkcj¹ to:
+            zdejmij ze stosu oczekiwan¹ liczbê parametrów funkcji(ozn. a1...an)
+            od³ó¿ na stos wynik funkcji dla parametrów a1...an
+    Zdejmij ze stosu wynik.
+	*/
+	
+	for (int index = 0;index < *length;index++) {
+		arg1 = 0;
+		arg2 = 0;
 
-		printf("\n");
-
-		if (countStack > 0) {
-			arg1 = appendToString(arg1, stack[countStack - 1]);
+		if (stackSize > 0) {
+			arg1 = appendToString(arg1, stack[stackSize - 1]);
 		}
-		if (countStack > 1) {
-			arg2 = appendToString(arg2, stack[countStack - 2]);
-			printf("ARGS:%s   %s\n", arg1, arg2, expressionArray[i], doMath(getOperator(expressionArray[i]), arg1, arg2));
+		if (stackSize > 1) {
+			arg2 = appendToString(arg2, stack[stackSize - 2]);
 		}
 
-		if (isNumber(expressionArray[i])) {
-			stack = appendToArray(stack, expressionArray[i], &countStack);
+		/*jeœli i-ty symbol jest liczb¹, to od³ó¿ go na stos*/
+		if (isNumber(expressionArray[index]) == 1) {
+			stack = appendToArray(stack, expressionArray[index], &stackSize);
 			continue;
 		}
 
-		if (getOperator(expressionArray[i]) >= 0 && 5 >= getOperator(expressionArray[i]) && countStack > 1) {
-			stack = popArray(stack, &countStack);
-			stack = popArray(stack, &countStack);
-			stack = appendToArray(stack, doMath(getOperator(expressionArray[i]), arg1, arg2), &countStack);
-
-			/*printf("STACK:\n");
-			for(int x=0;x<countStack;x++){
-				//printf("%s\n",stack[x]);
-			}
-			*/
-
+		/*jeœli i-ty symbol jest operatorem to:
+			zdejmij ze stosu jeden element (ozn. a),
+			zdejmij ze stosu kolejny element (ozn. b),
+			od³ó¿ na stos wartoœæ b operator a.*/
+		if (getOperator(expressionArray[index]) >= 0 && 5 >= getOperator(expressionArray[index]) && stackSize > 1) {
+			
+			stack = popArray(stack, &stackSize, true);
+			stack = popArray(stack, &stackSize, true);
+			stack = appendToArray(stack, doMath(getOperator(expressionArray[index]), arg1, arg2), &stackSize);
 		}
+
 	}
 
-	result = atof(stack[0]);
-	//freeArray(stack, countStack);
+	if (stack != NULL) {
+		result = atof(stack[0]);
+	}
+	
 	return  result;
 }

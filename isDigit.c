@@ -3,11 +3,9 @@
 #include <stdbool.h>
 
 /* CZY TO CYFRA */
-bool isDigit(char* expression) {
-	if (strlen(expression) > 2) { return false; }
-	bool flag = false;
-	if (((int)expression[0] >= 48 && (int)expression[0] <= 57) || (int)expression[0] == 46) {
-		flag = true;
+bool isDigit(char expression) {
+	if (((int)expression >= 48 && (int)expression <= 57) || (int)expression == 46) {
+		return true;
 	}
-	return flag;
+	return false;
 }

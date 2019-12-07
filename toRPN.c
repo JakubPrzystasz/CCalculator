@@ -1,120 +1,146 @@
 #include "calculator.h"
 #include <stdlib.h>
+#include <string.h>
 
 /* CONVERT INFIX EXPRESSION TO POSTFIX EXPRESSION */
 char** toRPN(char** expressionArray, int* length) {
-	//queue
+	//output queue
 	char** output = 0;
+
 	//stack
 	char** stack = 0;
-	int countOutput = 0, countStack = 0, stackI = 0;
 
-	/*DEBUG*/
-	/*
-		for (int i = 0; i < *length; i++) {
-			printf("[%d]{%d}-> %s\n",i,strlen(expressionArray[i]),expressionArray[i]);
-		}
+	int outputSize = 0, stackSize = 0;
 
-	/*DEBUG*/
+	for (int index = 0;index < *length;index++) {
 
-	for (int i = 0;i < *length;i++) {
-
-
-		//        printf("(%d)EXPRESSION:%s\nSTACK:",i,expressionArray[i]);
-		//        for(int x=0;x<countStack;x++){
-		//            printf("%s ",stack[x]);
-		//        }
-		//        printf("\nQUEUE:");
-		//        for(int x=0;x<countOutput;x++){
-		//            printf("%s ",output[x]);
-		//        }
-		//        printf("\n");
-
-
-		if (isNumber(expressionArray[i])) {
-			output = appendToArray(output, expressionArray[i], &countOutput);
+		//Jeœli symbol jest liczb¹ dodaj go do kolejki wyjœcie.
+		if (isNumber(expressionArray[index])) {
+			output = appendToArray(output, expressionArray[index], &outputSize);
 			continue;
 		}
 
-		if (isFunction(expressionArray[i])) {
-			output = appendToArray(output, expressionArray[i], &countOutput);
+		//Jeœli symbol jest funkcj¹ w³ó¿ go na stos.
+		if (isFunction(expressionArray[index])) {
+			stack = appendToArray(stack, expressionArray[index], &outputSize);
 			continue;
 		}
-
-		if (getOperator(expressionArray[i]) == 8) {
-			stackI = countStack - 1;
-			while (getOperator(stack[stackI]) != 6) {
-				output = appendToArray(output, stack[stackI], &countOutput);
-				stack = popArray(stack, &countStack);
-				stackI -= 1;
+		
+		//Jeœli symbol jest znakiem oddzielaj¹cym argumenty funkcji (przecinek):
+		if (getOperator(expressionArray[index]) == 8) {
+			/*Dopóki najwy¿szy element stosu nie jest lewym nawiasem,
+			zdejmij element ze stosu i dodaj go do kolejki wyjœcie.
+			Jeœli lewy nawias nie zosta³ napotkany oznacza to, ¿e znaki
+			oddzielaj¹ce zosta³y postawione w z³ym miejscu lub 
+			nawiasy s¹ Ÿle umieszczone.*/
+			
+			for (int i = stackSize - 1;i >= 0;i--) {
+				if (stack != NULL && stack[i] != NULL && getOperator(stack[i]) != 6) {
+					output = appendToArray(output, stack[i], &outputSize);
+					stack = popArray(stack, &stackSize, false);
+				}
 			}
 			continue;
 		}
-
-		if (getOperator(expressionArray[i]) == 6) {
-			stack = appendToArray(stack, expressionArray[i], &countStack);
+		
+		//Je¿eli symbol jest lewym nawiasem to w³ó¿ go na stos.
+		if (getOperator(expressionArray[index]) == 6) {
+			stack = appendToArray(stack, expressionArray[index], &stackSize);
 			continue;
 		}
 
-		if (getOperator(expressionArray[i]) == 7) {
-			stackI = countStack - 1;
-			while (getOperator(stack[stackI]) != 6) {
-				output = appendToArray(output, stack[stackI], &countOutput);
-				stack = popArray(stack, &countStack);
-				stackI -= 1;
-			}
-			stack = popArray(stack, &countStack);
-			continue;
-		}
-
-		if (getOperator(expressionArray[i]) >= 0 && 5 >= getOperator(expressionArray[i])) {
-			stackI = countStack - 1;
-			//stos pusty lub priorytet jest wiekszy
-			if (countStack == 0) {
-				stack = appendToArray(stack, expressionArray[i], &countStack);
-				continue;
-			}
-			if (getOperatorPriority(getOperator(stack[stackI])) < getOperatorPriority(getOperator(expressionArray[i]))) {
-				stack = appendToArray(stack, expressionArray[i], &countStack);
-				continue;
-			}
-			else {
-				//wiekszy lub rowny priorytet na stosie
-				for (stackI;stackI >= 0;stackI--) {
-					if (getOperatorPriority(getOperator(stack[stackI])) < getOperatorPriority(getOperator(expressionArray[i]))) {
-						stack = appendToArray(stack, expressionArray[i], &countStack);
+		/*
+		Je¿eli symbol jest prawym nawiasem to zdejmuj operatory ze stosu
+		i dok³adaj je do kolejki wyjœcie, dopóki symbol na górze stosu nie jest
+		lewym nawiasem, kiedy dojdziesz do tego miejsca zdejmij lewy nawias ze 
+		stosu bez dok³adania go do kolejki wyjœcie. 
+		*/
+		if (getOperator(expressionArray[index]) == 7) {
+			for (int i = stackSize - 1;i >= 0;i--) {
+				if (stack != NULL && stack[i] != NULL) {
+					if (getOperator(stack[i]) == 6) {
+						stack = popArray(stack, &stackSize, true);
 						break;
 					}
 					else {
-						output = appendToArray(output, stack[stackI], &countOutput);
-						stack = popArray(stack, &countStack);
+						output = appendToArray(output, stack[i], &outputSize);
+						stack = popArray(stack, &stackSize, false);
+					}
+				} else {
+					break;
+				}
+			}
+			/*
+			Teraz, jeœli najwy¿szy 	element na stosie jest funkcj¹,
+			tak¿e do³ó¿ go do kolejki wyjœcie. Jeœli stos zostanie opró¿niony 
+			i nie napotkasz lewego nawiasu, oznacza to, ¿e nawiasy zosta³y Ÿle umieszczone.
+			*/
+			for (int i = stackSize - 1;i >= 0;i--) {
+				if (stack != NULL && stack[i] != NULL) {
+					if (isFunction(stack[i])) {
+						output = appendToArray(output, stack[i], &outputSize);
+						stack = popArray(stack, &stackSize, false);
+					}
+				}
+			}
+
+			continue;
+		}
+
+		/*
+		Jeœli symbol jest operatorem, o1, wtedy:
+			1) dopóki na górze stosu znajduje siê operator, o2 taki, ¿e:
+				o1 jest lewostronnie ³¹czny i jego kolejnoœæ wykonywania jest
+				mniejsza lub równa kolejnoœci wyk. o2,
+				lub
+				o1 jest prawostronnie ³¹czny i jego kolejnoœæ wykonywania jest
+				mniejsza od o2, zdejmij o2 ze stosu i do³ó¿ go do kolejki wyjœciowej
+				i wykonaj jeszcze raz 1)
+			2) w³ó¿ o1 na stos operatorów.
+		*/
+		if (getOperator(expressionArray[index]) >= 0 && 5 >= getOperator(expressionArray[index])) {
+			//stos pusty lub priorytet jest wiekszy
+			if (stackSize == 0) {
+				stack = appendToArray(stack, expressionArray[index], &stackSize);
+				continue;
+			}
+			if (getOperatorPriority(getOperator(stack[stackSize-1])) < getOperatorPriority(getOperator(expressionArray[index]))) {
+				stack = appendToArray(stack, expressionArray[index], &stackSize);
+				continue;
+			} else {
+				//wiekszy lub rowny priorytet na stosie
+				for (int i = stackSize - 1;i >= 0;i--) {
+					if (getOperatorPriority(getOperator(stack[i])) < getOperatorPriority(getOperator(expressionArray[index]))) {
+						stack = appendToArray(stack, expressionArray[index], &stackSize);
+						break;
+					} else {
+						output = appendToArray(output, stack[i], &outputSize);
+						stack = popArray(stack, &stackSize, false);
 					}
 				}
 			}
 		}
-	}
+		
+		printArray(output, &outputSize);
+		printArray(stack, &stackSize);
 
-	//ZWOLNIJ ELEMENTY ZE STOSU I PRZEKARZ DO WYJSCIA
-	stackI = countStack - 1;
-	while (countStack > 0) {
-		output = appendToArray(output, stack[stackI], &countOutput);
-		stack = popArray(stack, &countStack);
-		stackI -= 1;
 	}
 
 	/*
-   printf("STACK:");
-   for(int i=0;i<countStack;i++){
-	   printf("%s ",stack[i]);
-   }
-   printf("\n");
-   for(int i=0;i<countOutput;i++){
-	   printf("%s ",output[i]);
-	}
-	printf("\n");
+	Jeœli nie ma wiêcej symboli do przeczytania, zdejmuj wszystkie symbole
+	ze stosu (jeœli jakieœ s¹) i dodawaj je do kolejki wyjœcia. 
+	(Powinny to byæ wy³¹cznie operatory, jeœli natrafisz na jakiœ nawias
+	oznacza to, ¿e nawiasy zosta³y Ÿle umieszczone.)
 	*/
 
-	* length = countOutput;
+	for (int i = stackSize - 1;i >= 0;i--){
+		output = appendToArray(output, stack[i], &outputSize);
+		free(stack[i]);
+	}
+
+	free(stack);
+
+	* length = outputSize;
 
 	return output;
 }

@@ -18,7 +18,7 @@ char** removeInArray(char** array, int* count, int index) {
 
 	//pop value 
 	if (index + 1 == *count) {
-		array = popArray(array, &length);
+		array = popArray(array, &length,true);
 
 		if (array == NULL) {
 			return NULL;

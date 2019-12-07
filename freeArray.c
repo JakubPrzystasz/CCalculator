@@ -6,9 +6,13 @@
 void freeArray(char** array, size_t size)
 {
 	if (array != NULL) {
-		for (int i = 0; i < size; i++)
-			free(array[i]);
+		for (int i = 0; i < size; i++) {
+			if (array[i] != NULL) {
+				free(array[i]);
+			}
+		}
 		free(array);
 	}
+
 	return 0;
 }
