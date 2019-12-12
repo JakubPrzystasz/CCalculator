@@ -4,18 +4,18 @@
 #include <string.h>
 
 /* APPEND STRING TO END OF ARRAY */
-char** appendToArray(char** array, char* string, int* count) {
+char** appendToArray(char** array, char* string,int* count) {
 	if (*count < 0) {
 		return NULL;
 	}
 
-	if (string == NULL) {
+    if (string == NULL){
 		freeArray(array, *count);
 		return NULL;
-	}
+	}	
 
-	//initialize new array
-	if (array == NULL || *count == 0) {
+    //initialize new array
+    if (array == NULL){
         array = (char **) malloc(sizeof(*array));
         if(array == NULL){
 			return NULL;

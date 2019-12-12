@@ -11,18 +11,13 @@ char** parseExpression(char* expression, int* length) {
 	int count = 0;
 	char* string = 0;
 	char** array = 0;
+	char char1 = 0, char2 = 0;
 	//0 - number; 1- function
 	bool expType = 0;
-	char char1[2] = {' ','\0'};
-	char char2[2] = {' ','\0'};
 
 	//dodawaj do stringa dopóki nie napotkasz czegos co nie jest cyfra
 	for (int i = 0; i < *length; i++) {
-		char1[0] = expression[i];
-		if (i + 1 < *length) {
-			char2[0] = expression[i+1];
-		}
-
+		char char1[2] = { expression[i],'\0' };
 		if (i == 0 && char1[0] == '-') {
 			array = appendToArray(array, "0", &count);
 		}
@@ -34,10 +29,6 @@ char** parseExpression(char* expression, int* length) {
 				string = 0;
 			}
 			array = appendToArray(array, char1, &count);
-			if (strcmp(char1,")") == 0 && strcmp(char2,")")) {
-				array = appendToArray(array, "*", &count);
-			}
-			continue;
 		} else {
 			if (string != 0) {
 				if (!isNumber(char1) && expType == 0) {
@@ -51,27 +42,28 @@ char** parseExpression(char* expression, int* length) {
 					string = 0;
 					string = appendToString(string, char1);
 					expType = 0;
-				} else {
+				}
+				else {
 					string = appendToString(string, char1);
 				}
 			} else {
 				string = appendToString(string, char1);
 				if (isNumber(string)) {
 					expType = 0;
-				} else {
+				}
+				else {
 					expType = 1;
 				}
 			}
 		}
 
 		/* DEBUG */
-		
+		/*
 		printf("STRING:%s | isNumber:%d | isDigit:%d | isFunc:%d | getOperator:%d | CHAR: %c \n",
 		string,string!=0?isNumber(string):0,isDigit(char1),isFunction(char1),getOperator(   char1),char1);
-		
+		*/
 		/* DEBUG */
 
-		//end of loop
 	}
 
 	//wrzuc to co zostalo w temp do tablicy
@@ -92,7 +84,15 @@ char** parseExpression(char* expression, int* length) {
 		}
 	}
 
-	*length = count;
+	/* *DEBUG* POKAZ TABLICE *DEBUG* */
+	/*
+	printf("COUNT: %d\n",count);
+	for (int i = 0; i < count; i++) {
+		   printf("[%d]-> %s\n",i,array[i]);
+	   }
 
+/* *DEBUG*     *DEBUG*   *DEBUG* */
+
+	*length = count;
 	return array;
 }

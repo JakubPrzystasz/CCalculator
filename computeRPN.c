@@ -10,8 +10,6 @@ double computeRPN(char** expressionArray, int* length) {
 	int stackSize = 0;
 	char* arg1 = 0;
 	char* arg2 = 0;
-	char* value = 0;
-	char* tmp = 0;
 
 	double result = 0;
 
@@ -32,28 +30,16 @@ double computeRPN(char** expressionArray, int* length) {
 		arg1 = 0;
 		arg2 = 0;
 
-		if (expressionArray[index] != NULL) {
-			value = expressionArray[index];
-		} else {
-			return 0;
-		}
-
 		if (stackSize > 0) {
-			if (arg1 != NULL) {
-				free(arg1);
-			}
 			arg1 = appendToString(arg1, stack[stackSize - 1]);
 		}
 		if (stackSize > 1) {
-			if (arg2 != NULL) {
-				free(arg2);
-			}
 			arg2 = appendToString(arg2, stack[stackSize - 2]);
 		}
 
 		/*jeœli i-ty symbol jest liczb¹, to od³ó¿ go na stos*/
-		if (isNumber(value) == 1) {
-			stack = appendToArray(stack, value, &stackSize);
+		if (isNumber(expressionArray[index]) == 1) {
+			stack = appendToArray(stack, expressionArray[index], &stackSize);
 			continue;
 		}
 
@@ -61,14 +47,11 @@ double computeRPN(char** expressionArray, int* length) {
 			zdejmij ze stosu jeden element (ozn. a),
 			zdejmij ze stosu kolejny element (ozn. b),
 			od³ó¿ na stos wartoœæ b operator a.*/
-		if (getOperator(value) >= 0 && 5 >= getOperator(value)) {
-			if (stackSize < 2) {
-				return 0;
-			}
-			stack = popArray(stack, &stackSize,true);
-			stack = popArray(stack, &stackSize,true);
-			tmp = doMath(getOperator(value), arg1, arg2);
-			stack = appendToArray(stack, tmp , &stackSize);
+		if (getOperator(expressionArray[index]) >= 0 && 5 >= getOperator(expressionArray[index]) && stackSize > 1) {
+			
+			stack = popArray(stack, &stackSize, true);
+			stack = popArray(stack, &stackSize, true);
+			stack = appendToArray(stack, doMath(getOperator(expressionArray[index]), arg1, arg2), &stackSize);
 		}
 
 	}

@@ -5,8 +5,8 @@
 #include <stdbool.h>
 #include <string.h>
 
-/* DELETE LAST VALUE OF ARRAY */
-char** popArray(char** array, int* count,bool deleteValue) {
+/* REMOVE LAST VALUE OF ARRAY */
+char** popArray(char** array, int* count,bool removeValue) {
 	if (array == NULL){
 		return 0;
 	}
@@ -16,10 +16,10 @@ char** popArray(char** array, int* count,bool deleteValue) {
 	}
 
 	if (*count == 1) {
-		if (deleteValue == true) {
-			free(array);
+		if (removeValue == 1) {
+			free(array[0]);
 		}
-
+		free(array);
 		*count = 0;
 		return 0;
 	}
@@ -27,7 +27,7 @@ char** popArray(char** array, int* count,bool deleteValue) {
 	char** tmpArray = array;
 	char* tmpVal = array[*count - 1];
 
-	if (deleteValue == true) {
+	if (removeValue == 1) {
 		free(array[(*count - 1)]);
 	}
 

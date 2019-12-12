@@ -1,0 +1,3 @@
+- obsługa funkcji
+- kilka nawiasów (5+5)/(4-5) (4%3)(3+3^2)
+- czy napewno działa potęgowanie do nawiasu? 2^(4+5)

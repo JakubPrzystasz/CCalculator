@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 
-char* doMath(int operator,char* arg1, char* arg2) {
+int doMath(int operator,char* arg1, char* arg2) {
 	double value = 0;
 	char* result = 0;
 	result = appendToString(result, "");
@@ -31,8 +31,6 @@ char* doMath(int operator,char* arg1, char* arg2) {
 		value = fmod(ARG2, ARG1);
 		break;
 	}
-
 	sprintf(result, "%lf", value);
-
 	return result;
 }
