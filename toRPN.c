@@ -58,9 +58,10 @@ char** toRPN(char** expressionArray, int* length) {
 		if (getOperator(expressionArray[index]) == 7) {
 			for (int i = stackSize - 1;i >= 0;i--) {
 				if (stack != NULL && stack[i] != NULL) {
+					//usun nawias ze stosu 
 					if (getOperator(stack[i]) == 6) {
 						stack = popArray(stack, &stackSize, true);
-						break;
+						continue;
 					} else {
 						output = appendToArray(output, stack[i], &outputSize);
 						stack = popArray(stack, &stackSize, false);
@@ -116,12 +117,10 @@ char** toRPN(char** expressionArray, int* length) {
 				continue;
 			}
 
-			if (stack[stackSize] == ')') {
-				stack = popArray(stack, &stackSize, true);
-			}
 
 			//wiekszy lub rowny priorytet na stosie
 			for (int i = stackSize - 1;i >= 0;i--) {
+				//usun nawias jesli jest na stosie
 				o2 = getOperator(stack[i]);
 				if (o2 == 6) {
 					stack = popArray(stack, &stackSize, true);
