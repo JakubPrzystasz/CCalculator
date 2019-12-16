@@ -141,8 +141,8 @@
     <ClCompile Include="parseExpression.c" />
     <ClCompile Include="popArray.c" />
     <ClCompile Include="printArray.c" />
-    <ClCompile Include="pushBackArray.c" />
     <ClCompile Include="removeInArray.c" />
+    <ClCompile Include="toRNPRecur.c" />
     <ClCompile Include="toRPN.c" />
   </ItemGroup>
   <ItemGroup>

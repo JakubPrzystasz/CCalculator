@@ -15,6 +15,7 @@
 	char** removeInArray(char** array, int* count, int index);
 	char** parseExpression(char* expression, int* length);
 	char** toRPN(char** expressionArray, int* length);
+	char** toRPNRecur(char** expressionArray, int* length);
 	int doMath(int operator,char* arg1, char* arg2);
 	int getOperator(char* expression);
 	int getOperatorPriority(int operator);

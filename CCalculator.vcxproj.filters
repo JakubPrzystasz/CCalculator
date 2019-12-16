@@ -57,9 +57,6 @@
     <ClCompile Include="popArray.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="pushBackArray.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="removeInArray.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="getOperatorTie.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="toRNPRecur.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
