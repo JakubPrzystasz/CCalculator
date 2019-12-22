@@ -1,7 +1,8 @@
 #CCalculator 
 
 ![](https://img.shields.io/static/v1?label=Language&message=C&color=BLUE&style=flat-square&logo=appveyor)
-![](https://img.shields.io/static/v1?label=Current version&message=1.1&color=YELLOW&style=flat-square&logo=appveyor)
+
+![](https://img.shields.io/static/Current version-1.1-YELLOW)
 
 This is simple library written in C, that provides Reverse Polish Notation.
 
