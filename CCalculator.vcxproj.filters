@@ -13,70 +13,79 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Pliki źródłowe\Array">
+      <UniqueIdentifier>{bce3af06-ab0d-4612-b867-62979c5bf940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\String">
+      <UniqueIdentifier>{5c4f9033-b2b3-4927-ad48-21ada6a9a34f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\RNP">
+      <UniqueIdentifier>{4c807835-3104-4175-809c-a90464889616}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="appendToArray.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="appendToString.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="calculate.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="doMath.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="freeArray.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="getOperator.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="getOperatorPriority.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="insertToArray.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="isDigit.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="isFunction.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="isNumber.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="main.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="parseExpression.c">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="appendToString.c">
+      <Filter>Pliki źródłowe\String</Filter>
     </ClCompile>
-    <ClCompile Include="popArray.c">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="appendToArray.c">
+      <Filter>Pliki źródłowe\Array</Filter>
     </ClCompile>
-    <ClCompile Include="removeInArray.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="toRPN.c">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="freeArray.c">
+      <Filter>Pliki źródłowe\Array</Filter>
     </ClCompile>
     <ClCompile Include="editInArray.c">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\Array</Filter>
+    </ClCompile>
+    <ClCompile Include="removeInArray.c">
+      <Filter>Pliki źródłowe\Array</Filter>
+    </ClCompile>
+    <ClCompile Include="popArray.c">
+      <Filter>Pliki źródłowe\Array</Filter>
+    </ClCompile>
+    <ClCompile Include="insertToArray.c">
+      <Filter>Pliki źródłowe\Array</Filter>
     </ClCompile>
     <ClCompile Include="computeRPN.c">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\RNP</Filter>
+    </ClCompile>
+    <ClCompile Include="toRPN.c">
+      <Filter>Pliki źródłowe\RNP</Filter>
     </ClCompile>
     <ClCompile Include="printArray.c">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\Array</Filter>
+    </ClCompile>
+    <ClCompile Include="doMath.c">
+      <Filter>Pliki źródłowe\RNP</Filter>
+    </ClCompile>
+    <ClCompile Include="calculate.c">
+      <Filter>Pliki źródłowe\RNP</Filter>
+    </ClCompile>
+    <ClCompile Include="getOperator.c">
+      <Filter>Pliki źródłowe\RNP</Filter>
+    </ClCompile>
+    <ClCompile Include="getOperatorPriority.c">
+      <Filter>Pliki źródłowe\RNP</Filter>
     </ClCompile>
     <ClCompile Include="getOperatorTie.c">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\RNP</Filter>
+    </ClCompile>
+    <ClCompile Include="isDigit.c">
+      <Filter>Pliki źródłowe\RNP</Filter>
+    </ClCompile>
+    <ClCompile Include="isFunction.c">
+      <Filter>Pliki źródłowe\RNP</Filter>
+    </ClCompile>
+    <ClCompile Include="isNumber.c">
+      <Filter>Pliki źródłowe\RNP</Filter>
+    </ClCompile>
+    <ClCompile Include="parseExpression.c">
+      <Filter>Pliki źródłowe\RNP</Filter>
     </ClCompile>
     <ClCompile Include="toRNPRecur.c">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Pliki źródłowe\RNP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
