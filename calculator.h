@@ -1,18 +1,13 @@
-#include <stdbool.h>
-#include <stdlib.h>
+#define _CRT_SECURE_NO_WARNINGS
+#include "cstring.h"
+#include "array.h"
+#include <stdint.h>
 #include <stdbool.h>
 
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 
-	void freeArray(char** array, size_t size);
-	void printArray(char** array, int* count);
-	char* appendToString(char* string, char* value);
-    char** popArray(char** array, int* count,bool remove);
-	char** appendToArray(char** array, char* string, int* count);
-	char** insertToArray(char** array, char* string, int* count, int index);
-	char** editInArray(char** array, char* string, int* count, int index);
-	char** removeInArray(char** array, int* count, int index);
+/* Calculator */
 	char** parseExpression(char* expression, int* length);
 	char** toRPN(char** expressionArray, int* length);
 	char* doMath(int operator,char* arg1, char* arg2);

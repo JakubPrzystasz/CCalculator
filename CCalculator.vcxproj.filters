@@ -19,7 +19,10 @@
     <Filter Include="Pliki źródłowe\String">
       <UniqueIdentifier>{5c4f9033-b2b3-4927-ad48-21ada6a9a34f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\RPN">
+    <Filter Include="Pliki źródłowe\Bitmap">
+      <UniqueIdentifier>{9c4c2e5c-b48b-4d2e-a5a9-ef656e015942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Calculator">
       <UniqueIdentifier>{4c807835-3104-4175-809c-a90464889616}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -49,44 +52,56 @@
       <Filter>Pliki źródłowe\Array</Filter>
     </ClCompile>
     <ClCompile Include="computeRPN.c">
-      <Filter>Pliki źródłowe\RPN</Filter>
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="toRPN.c">
-      <Filter>Pliki źródłowe\RPN</Filter>
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="printArray.c">
       <Filter>Pliki źródłowe\Array</Filter>
     </ClCompile>
     <ClCompile Include="doMath.c">
-      <Filter>Pliki źródłowe\RPN</Filter>
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="calculate.c">
-      <Filter>Pliki źródłowe\RPN</Filter>
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="getOperator.c">
-      <Filter>Pliki źródłowe\RPN</Filter>
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="getOperatorPriority.c">
-      <Filter>Pliki źródłowe\RPN</Filter>
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="getOperatorTie.c">
-      <Filter>Pliki źródłowe\RPN</Filter>
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="isDigit.c">
-      <Filter>Pliki źródłowe\RPN</Filter>
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="isNumber.c">
-      <Filter>Pliki źródłowe\RPN</Filter>
-    </ClCompile>
-    <ClCompile Include="parseExpression.c">
-      <Filter>Pliki źródłowe\String</Filter>
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="getFunction.c">
-      <Filter>Pliki źródłowe\RPN</Filter>
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="bitmap.c">
+      <Filter>Pliki źródłowe\Bitmap</Filter>
+    </ClCompile>
+    <ClCompile Include="parseExpression.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculator.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="array.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="cstring.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="bitmap.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>

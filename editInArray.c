@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include "calculator.h"
+#include "array.h"
 #include <stdio.h>
 #include <string.h>
 
