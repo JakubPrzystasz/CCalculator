@@ -19,7 +19,7 @@
     <Filter Include="Pliki źródłowe\String">
       <UniqueIdentifier>{5c4f9033-b2b3-4927-ad48-21ada6a9a34f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\RNP">
+    <Filter Include="Pliki źródłowe\RPN">
       <UniqueIdentifier>{4c807835-3104-4175-809c-a90464889616}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -49,43 +49,40 @@
       <Filter>Pliki źródłowe\Array</Filter>
     </ClCompile>
     <ClCompile Include="computeRPN.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+      <Filter>Pliki źródłowe\RPN</Filter>
     </ClCompile>
     <ClCompile Include="toRPN.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+      <Filter>Pliki źródłowe\RPN</Filter>
     </ClCompile>
     <ClCompile Include="printArray.c">
       <Filter>Pliki źródłowe\Array</Filter>
     </ClCompile>
     <ClCompile Include="doMath.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+      <Filter>Pliki źródłowe\RPN</Filter>
     </ClCompile>
     <ClCompile Include="calculate.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+      <Filter>Pliki źródłowe\RPN</Filter>
     </ClCompile>
     <ClCompile Include="getOperator.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+      <Filter>Pliki źródłowe\RPN</Filter>
     </ClCompile>
     <ClCompile Include="getOperatorPriority.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+      <Filter>Pliki źródłowe\RPN</Filter>
     </ClCompile>
     <ClCompile Include="getOperatorTie.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+      <Filter>Pliki źródłowe\RPN</Filter>
     </ClCompile>
     <ClCompile Include="isDigit.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
-    </ClCompile>
-    <ClCompile Include="isFunction.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+      <Filter>Pliki źródłowe\RPN</Filter>
     </ClCompile>
     <ClCompile Include="isNumber.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+      <Filter>Pliki źródłowe\RPN</Filter>
     </ClCompile>
     <ClCompile Include="parseExpression.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+      <Filter>Pliki źródłowe\String</Filter>
     </ClCompile>
-    <ClCompile Include="toRNPRecur.c">
-      <Filter>Pliki źródłowe\RNP</Filter>
+    <ClCompile Include="getFunction.c">
+      <Filter>Pliki źródłowe\RPN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

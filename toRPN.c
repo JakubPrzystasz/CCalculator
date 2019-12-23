@@ -21,7 +21,7 @@ char** toRPN(char** expressionArray, int* length) {
 		}
 
 		//Jeœli symbol jest funkcj¹ w³ó¿ go na stos.
-		if (isFunction(expressionArray[index])) {
+		if (getFunction(expressionArray[index]) >= 0) {
 			stack = appendToArray(stack, expressionArray[index], &outputSize);
 			continue;
 		}
@@ -81,7 +81,7 @@ char** toRPN(char** expressionArray, int* length) {
 						stack = popArray(stack, &stackSize, true);
 						continue;
 					}
-					if (isFunction(stack[i])) {
+					if (getFunction(stack[i]) >= 0) {
 						output = appendToArray(output, stack[i], &outputSize);
 						stack = popArray(stack, &stackSize, false);
 					}
@@ -164,18 +164,10 @@ char** toRPN(char** expressionArray, int* length) {
 		free(stack[i]);
 	}
 
-	//printArray(output, &outputSize);
-
-	/*for (int i = 0; i < outputSize; i++) {
-		if (output[i][0]  == ')' || output[i][0] == '(') {
-			printf("ZJEBALES");
-			exit(1);
-		}
-	}*/
 
 	free(stack);
 
-	* length = outputSize;
+	*length = outputSize;
 
 	return output;
 }

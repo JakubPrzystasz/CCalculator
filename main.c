@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 {
 
 	char* expression = 0;
-	expression = appendToString(expression, "(4*4-5^3)+(54-34)");
+	expression = appendToString(expression, "sin5");
 	double x = 0;
 	x = calculate(expression);
 	printf("RESULT:\n%.2lf\n", x);

@@ -1,7 +1,7 @@
 #include "calculator.h"
 #include <string.h>
 
-/*CALCULATE MATH EXPRESSION*/
+/* CALCULATE MATH EXPRESSION */
 double calculate(char* expression) {
 	int size = 0;
 	char** expressionArray = 0;
@@ -11,6 +11,7 @@ double calculate(char* expression) {
 	size = strlen(expression);
 	printf("EXPRESSION:\n%s\n",expression);
 	expressionArray = parseExpression(expression, &size);
+	return 0;
 	printf("PARSED EXPRESSION:\n");
 	printArray(expressionArray, &size);
 	rpnArray = toRPN(expressionArray, &size);

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 
-int doMath(int operator,char* arg1, char* arg2) {
+char* doMath(int operator,char* arg1, char* arg2) {
 	double value = 0;
 	char* result = 0;
 	result = appendToString(result, "");

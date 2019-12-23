@@ -135,14 +135,13 @@
     <ClCompile Include="getOperatorTie.c" />
     <ClCompile Include="insertToArray.c" />
     <ClCompile Include="isDigit.c" />
-    <ClCompile Include="isFunction.c" />
+    <ClCompile Include="getFunction.c" />
     <ClCompile Include="isNumber.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="parseExpression.c" />
     <ClCompile Include="popArray.c" />
     <ClCompile Include="printArray.c" />
     <ClCompile Include="removeInArray.c" />
-    <ClCompile Include="toRNPRecur.c" />
     <ClCompile Include="toRPN.c" />
   </ItemGroup>
   <ItemGroup>

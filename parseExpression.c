@@ -5,9 +5,24 @@
 #include <stdbool.h>
 #include <string.h>
 
-/* PARSE STRING TO ARRAY OF MATH EXPRESSIONS */
+/* PARSE STRING TO ARRAY */
 char** parseExpression(char* expression, int* length) {
+	/*
+		IMPORTANT!
+		dot "." is a floating point
+		comma "," is a delimited of function args
+		sin(5) is equal to sin5, sin(3*3),sin5/2
+		sin5+3 is equal to sin(5) + 3, 
+		if we want sin of 5+3: sin(5+3)
 
+		all constants and variables are defined 
+		like functions, technically each are functions
+		but some of them does not require any parameters
+		to be passed, if we have function we need to 
+		calculate a value of each parameter, which can be 
+		a inside math expression, that means
+		we have to parse each expression recursively
+	*/ 
 	int count = 0;
 	char* string = 0;
 	char** array = 0;
@@ -42,8 +57,8 @@ char** parseExpression(char* expression, int* length) {
 					string = 0;
 					string = appendToString(string, char1);
 					expType = 0;
-				}
-				else {
+				/* !!! */
+				} else {
 					string = appendToString(string, char1);
 				}
 			} else {
@@ -72,7 +87,7 @@ char** parseExpression(char* expression, int* length) {
 	}
 
 	for (int i = 0;i < count - 1;++i) {
-		if (isNumber(array[i]) && isFunction(array[i + 1])) {
+		if (isNumber(array[i]) && getFunction(array[i + 1]) >= 0) {
 			array = insertToArray(array, "*\0", &count, i + 1);
 			i += 1;
 			continue;
@@ -83,15 +98,6 @@ char** parseExpression(char* expression, int* length) {
 			continue;
 		}
 	}
-
-	/* *DEBUG* POKAZ TABLICE *DEBUG* */
-	/*
-	printf("COUNT: %d\n",count);
-	for (int i = 0; i < count; i++) {
-		   printf("[%d]-> %s\n",i,array[i]);
-	   }
-
-/* *DEBUG*     *DEBUG*   *DEBUG* */
 
 	*length = count;
 	return array;
