@@ -4,22 +4,23 @@
 
 /* Calculate expression value */
 double calculate(char* expression) {
-	int size = 0;
+	
+	//Initialize empty array of strings to store parsed expression
 	char** expressionArray = 0;
+	
+	//Size of expression array 
+	size_t sizeOfExpression = 0;
+
+	//Initialize empty array of strings to store an RPN
 	char** rpnArray = 0;
-	double result = 0;
 
-	size = strlen(expression);
-	printf("EXPRESSION:\n%s\n",expression);
-	expressionArray = parseExpression(expression, &size);
+	//Size of rpn array 
+	size_t sizeOfRpn = 0;
+
+	/*DEBUG*/printf("Expression: {%s}\n",expression);/*DEBUG*/
+	/*DEBUG*/printf("Expression array:\n");/*DEBUG*/
+	expressionArray = parseExpression(expression, &sizeOfExpression);
+	/*DEBUG*/printArray(expressionArray,&sizeOfExpression);/*DEBUG*/
+	
 	return 0;
-	//debug
-
-	printf("PARSED EXPRESSION:\n");
-	printArray(expressionArray, &size);
-	rpnArray = toRPN(expressionArray, &size);
-	printf("RPN EXPRESSION:\n");
-	printArray(rpnArray, &size);
-	result = computeRPN(rpnArray, &size);
-	return result;
 }

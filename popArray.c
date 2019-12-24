@@ -5,41 +5,49 @@
 #include <stdbool.h>
 #include <string.h>
 
-/* REMOVE LAST VALUE OF ARRAY */
-char** popArray(char** array, int* count,bool removeValue) {
-	if (array == NULL){
-		return 0;
-	}
-
-	if (*count < 1) {
-		return array;
-	}
-
-	if (*count == 1) {
-		if (removeValue == 1) {
-			free(array[0]);
-		}
-		free(array);
-		*count = 0;
-		return 0;
-	}
-
-	char** tmpArray = array;
-	char* tmpVal = array[*count - 1];
-
-	if (removeValue == 1) {
-		free(array[(*count - 1)]);
-	}
-
-	array = (char**)realloc(array, (*count - 1) * sizeof(*array));
+/* Delete last value */
+char** popArray(char** array, size_t* sizeOfArray,bool deleteValue) {
 	
-	if(array == NULL){
-		freeArray(tmpArray, *count);
-		free(tmpVal);
+	//If array is empty
+	if (array == NULL || *sizeOfArray < 1){
+		//If sizeOfArray is wrong arg do not make memory leak of array
+		if (array != NULL) {
+			return array;
+		}
 		return 0;
 	}
 
-	*count -= 1;
+	//When array has one value
+	if (*sizeOfArray == 1) {
+		//Check if we have to delete value
+		if (deleteValue == true) {
+			free(array);
+		}
+		*sizeOfArray = 0;
+		return 0;
+	}
+
+	//Store pointer to array, to avoid memory leak of array
+	char** tmpArray = array;
+
+	//Pointer to last element of array
+	char* tmpVal = array[*sizeOfArray - 1];
+
+	//Delete last element from memory
+	if (deleteValue == true) {
+		free(array[(*sizeOfArray - 1)]);
+	}
+
+	//Allocate new space for array
+	array = (char**)realloc(array, (*sizeOfArray - 1) * sizeof(*array));
+	
+	//When allocation fails, free all memory
+	if(array == NULL){
+		freeArray(tmpArray, *sizeOfArray);
+		return 0;
+	}
+
+	*sizeOfArray -= 1;
 
 	return array;
 }

@@ -2,14 +2,18 @@
 #include "array.h"
 #include <stdio.h>
 
-/* Just print array */
-void printArray(char** array, int* count) {
-	if (*count < 1) {
+/* Print array to std out*/
+void printArray(char** array, size_t* sizeOfArray) {
+	
+	//If array is empty
+	if (*sizeOfArray < 1 || array == NULL) {
+		printf("Array is empty\n");
 		return;
 	}
 
-	for (int i = 0;i < *count;i++) {
-		printf("[%d]->{%s}\n", i, array[i]);
+	//Print each value in format: [index]->{value}
+	for (size_t i = 0;i < *sizeOfArray;i++) {
+		printf("[%zu]->{%s}\n", i, array[i]);
 	}
 
 }

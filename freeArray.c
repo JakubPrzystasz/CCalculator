@@ -2,17 +2,17 @@
 #include "array.h"
 #include <stdlib.h>
 
-/* REMOVE ARRAY FROM MEMORY */
-void freeArray(char** array, size_t size)
+/* Delete array */
+void freeArray(char** array, size_t* sizeOfArray)
 {
+	//If array is not null
 	if (array != NULL) {
-		for (int i = 0; i < size; i++) {
+		//Delete each of value
+		for (size_t i = 0; i < *sizeOfArray; i++) {
 			if (array[i] != NULL) {
 				free(array[i]);
 			}
 		}
-		free(array);
 	}
 
-	return 0;
 }

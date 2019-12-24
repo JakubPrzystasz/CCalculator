@@ -3,25 +3,26 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* APPEND VALUE TO STRING */
+/* Append value to string */
 char* appendToString(char* string, char* value) {
-	if (value == NULL) {
-		if (string != NULL) {
-			free(string);
-		}
-		
-		return NULL;
+	//If value is null 
+	if (value == NULL || strlen(value) < 1) {
+		return string;
 	}
-	//INITIALIZE NEW STRING
+
+	char* tmpString = 0;
+
+	//Initialize new string
 	if (string == NULL) {
         string = (char*)malloc((strlen(value)+1)*sizeof(char));
 		if (string == NULL) {
 			return  NULL;
 		}
 		string = strcpy(string, value);
+		return string;
 	} else {
-    //APPEND VALUE TO EXISITING STRING
-		char* tmpString = (char*) malloc((strlen((char*)string) + 1) * sizeof(char));
+    //Append value to existing string
+		tmpString = (char*)malloc((strlen((char*)string) + 1) * sizeof(char));
 		if (tmpString == NULL) {
 			return  NULL;
 		}
@@ -33,7 +34,7 @@ char* appendToString(char* string, char* value) {
 		}
 
 		free(string);
-		string = tmpString;
+
+		return tmpString;
 	}
-	return string;
 }

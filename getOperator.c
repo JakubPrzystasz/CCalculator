@@ -3,29 +3,29 @@
 #include <stdlib.h>
 
 /* SPRAWDZ CZY CIAG JEST OPERATOREM */
-int getOperator(char* expression) {
-	if (strlen(expression) > 2) { return -1; }
+Operator getOperator(char* expression) {
+	if (strlen(expression) > 1) { return -1; }
 	switch (expression[0])
 	{
 	case '+':
-		return 0;
+		return plus;
 	case '-':
-		return 1;
+		return minus;
 	case '*':
-		return 2;
+		return multiply;
 	case '/':
-		return 3;
+		return divide;
 	case '^':
-		return 4;
+		return power;
 	case '%':
-		return 5;
+		return modulo;
 	case '(':
-		return 6;
+		return leftBracket;
 	case ')':
-		return 7;
+		return rightBracket;
 	case ',':
-		return 8;
+		return comma;
 	}
 
-	return -1;
+	return undefined;
 }

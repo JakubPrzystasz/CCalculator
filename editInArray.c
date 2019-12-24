@@ -1,29 +1,33 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "array.h"
+#include "cstring.h"
 #include <stdio.h>
 #include <string.h>
 
-/* EDIT VALUE IN ARRAY */
-char** editInArray(char** array, char* string, int* count, int index) {
-	if (array == NULL) {
-		return NULL;
+/* Edit value in array */
+char** editInArray(char** array, char* value, size_t* sizeOfArray, size_t index) {
+	
+	//If array is empty
+	if (array == NULL || *sizeOfArray < 1) {
+		//If sizeOfArray is wrong arg do not make memory leak of array
+		if (array != NULL) {
+			return array;
+		}
+		return 0;
 	}
 
-	if (index > *count || index < 0 || *count < 1) {
+	//Given index is wrong
+	if (index > *sizeOfArray) {
 		return array;
 	}
 
-	int length = *count;
+	//Pointer to value
+	char* tmp = 0;
+	tmp = appendToString(tmp,value);
 
-	char* tmp = (char*) malloc((strlen((char*)string) + 1) * sizeof(char));
-	if (tmp == NULL) {
-		freeArray(array,length);
-		return NULL;
-	}
-
-	strcpy(tmp, string);
 	free(array[index]);
+
 	array[index] = tmp;
-	
+
 	return array;
 }

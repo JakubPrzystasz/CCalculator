@@ -3,48 +3,59 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* APPEND STRING TO END OF ARRAY */
-char** appendToArray(char** array, char* string,int* count) {
-	if (*count < 0) {
-		return NULL;
-	}
+/* Append value to array */
+char** appendToArray(char** array, char* value,size_t* sizeOfArray) {
 
-    if (string == NULL){
-		freeArray(array, *count);
-		return NULL;
+	//There is nothing to do 
+	//!! Maybe throw error code? !!!
+	if (value == NULL){
+		return array;
 	}	
 
-    //initialize new array
+    //Initialize new array if pointer is null
     if (array == NULL){
-        array = (char **) malloc(sizeof(*array));
+        array = (char**) malloc(sizeof(*array));
+		
+		//Unable to allocate memory
         if(array == NULL){
 			return NULL;
         }
-        array[0] = (char *)malloc((strlen((char*)string)+1)*sizeof(char));
-        if(array[0] == NULL){
-			free(array);
+
+		//Allocate memory for value
+		//Pointer always points to the first element,
+		//cause of that I dont have to use array[0]
+        array = (char*)malloc((strlen((char*)value)+1) * sizeof(char));
+		
+		//Unable to allocate memory
+		if(array == NULL){
 			return NULL;
         }
     }
 
-    //append value in existing array
+    //Append value to existing array
+	//Temporary pointer to array
     char** tmpArray = array;
-	array = (char **) realloc(array, (*count + 1) * sizeof(*array));
+	array = (char**) realloc(array, (*sizeOfArray + 1) * sizeof(*array));
+	
+	//Unable to allocate memory
 	if(array == NULL){
-		freeArray(tmpArray,*count);
+		freeArray(tmpArray,*sizeOfArray);
 		return NULL;
 	}
 
-    array[*count] = (char *)malloc((strlen((char*)string)+1)*sizeof(char));
+	//Allocate memory for value
+    array[*sizeOfArray] = (char*)malloc((strlen((char*)value)+1) * sizeof(char));
     
-	if (array[*count] == NULL){
-		freeArray(array,*count);
+	//Unable to allocate memory
+	if (array[*sizeOfArray] == NULL){
+		freeArray(array,*sizeOfArray);
 		return NULL;
     }
 
-    strcpy(array[*count],string);
+	//Copy value to array
+    strcpy(array[*sizeOfArray],value);
 
-	*count += 1;
+	*sizeOfArray += 1;
 
 	return array;
 }

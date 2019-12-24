@@ -75,12 +75,6 @@
     <ClCompile Include="getOperatorTie.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
-    <ClCompile Include="isDigit.c">
-      <Filter>Pliki źródłowe\Calculator</Filter>
-    </ClCompile>
-    <ClCompile Include="isNumber.c">
-      <Filter>Pliki źródłowe\Calculator</Filter>
-    </ClCompile>
     <ClCompile Include="getFunction.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
@@ -88,6 +82,18 @@
       <Filter>Pliki źródłowe\Bitmap</Filter>
     </ClCompile>
     <ClCompile Include="parseExpression.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="emptyString.c">
+      <Filter>Pliki źródłowe\String</Filter>
+    </ClCompile>
+    <ClCompile Include="isDigit.c">
+      <Filter>Pliki źródłowe\String</Filter>
+    </ClCompile>
+    <ClCompile Include="isNumber.c">
+      <Filter>Pliki źródłowe\String</Filter>
+    </ClCompile>
+    <ClCompile Include="getType.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
   </ItemGroup>
