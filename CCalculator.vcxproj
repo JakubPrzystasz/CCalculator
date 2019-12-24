@@ -123,15 +123,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="addition.c" />
     <ClCompile Include="appendToArray.c" />
     <ClCompile Include="appendToString.c" />
+    <ClCompile Include="basicCalculation.c" />
     <ClCompile Include="bitmap.c" />
     <ClCompile Include="calculate.c" />
     <ClCompile Include="computeRPN.c" />
     <ClCompile Include="editInArray.c" />
     <ClCompile Include="emptyString.c" />
     <ClCompile Include="freeArray.c" />
+    <ClCompile Include="functionCalc.c" />
     <ClCompile Include="getExpType.c" />
     <ClCompile Include="getOperatorPriority.c" />
     <ClCompile Include="getOperatorTie.c" />
@@ -139,6 +140,7 @@
     <ClCompile Include="isDigit.c" />
     <ClCompile Include="getFunction.c" />
     <ClCompile Include="isNumber.c" />
+    <ClCompile Include="isOperator.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="parseExpression.c" />
     <ClCompile Include="popArray.c" />

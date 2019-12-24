@@ -4,17 +4,18 @@
 #include <stdio.h>
 #include <math.h>
 
-double addition(char* args) {
+char* _addition(char** args) {
 
-	size_t sizeOfArray = 0;
+	char* string = 0;
 
-	//Args in array
-	char** argsString = splitString(args,',',&sizeOfArray);
+	string = appendToString(string, "");
+	
+	double arg[2] = { atof(args[0]),atof(args[1]) };
 
-	if (sizeOfArray == 2) {
-		double arg[2] = { atof(argsString[0]),atof(argsString[1]) };
-		return arg[0] + arg[1];
-	}
+	double tmp = arg[1] + arg[0];
 
-	return -1;
+	sprintf(string, "%lf", tmp);
+	
+	return string;
+
 }

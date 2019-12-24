@@ -6,65 +6,57 @@
 /* Check if the string is the function name */
 int getFunction(char* expression) {
 
-	const char mathFunctions[10][4] = {
+	const char mathFunctions[8][3] = {
+		"log",
+		"e",
+		"pi",
+		"!",
 		"sin",
 		"cos",
 		"tg",
 		"ctg",
-		"log",
-		"!",
-		"p",
-		"pi",
-		"e",
-		"g",
 	};
 
 	int expLength = strlen(expression);
 
 	if (strcmp(mathFunctions[0], expression) == 0) {
-		//it's a sin function
+		//it's log
 		return 0;
 	}
 
 	if (strcmp(mathFunctions[1], expression) == 0) {
-		//it's a cos function
+		//it's e
 		return 1;
 	}
 
 	if (strcmp(mathFunctions[2], expression) == 0) {
-		//it's a tg function
+		//it's pi
 		return 2;
 	}
 
 	if (strcmp(mathFunctions[3], expression) == 0) {
-		//it's a ctg function
+		//it's factorial
 		return 3;
 	}
 
 	if (strcmp(mathFunctions[4], expression) == 0) {
-		//it's a log function
+		//it's sin
 		return 4;
 	}
 
 	if (strcmp(mathFunctions[5], expression) == 0) {
-		//it's a factiorial
+		//it's cos
 		return 5;
 	}
 
-	if (strcmp(mathFunctions[6], expression) == 0
-		|| strcmp(mathFunctions[7], expression) == 0) {
-		//it's pi const 
+	if (strcmp(mathFunctions[6], expression) == 0) {
+		//it's tg
 		return 6;
 	}
 
-	if (strcmp(mathFunctions[8], expression) == 0) {
-		//it's e const 
+	if (strcmp(mathFunctions[7], expression) == 0) {
+		//it's ctg
 		return 7;
-	}
-
-	if (strcmp(mathFunctions[9], expression) == 0) {
-		//it's pi const 
-		return 8;
 	}
 
 	return -1;

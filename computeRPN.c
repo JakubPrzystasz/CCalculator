@@ -6,13 +6,17 @@
 #include <math.h>
 
 /* Compute value of RPN expression */
-double computeRPN(char** expressionArray, int* length) {
+double computeRPN(char** array, size_t* sizeOfArray) {
+	
 	char** stack = 0;
-	int stackSize = 0;
-	char* arg1 = 0;
-	char* arg2 = 0;
+	size_t sizeOfStack = 0;
 
-	double result = 0;
+	char** args = 0;
+	size_t sizeOfArgs = 0;
+	
+	char* string = 0;
+
+	expType type = undefined;
 
 	/*
 	    Dla wszystkich symboli z wyra¿enia ONP wykonuj:
@@ -27,40 +31,91 @@ double computeRPN(char** expressionArray, int* length) {
     Zdejmij ze stosu wynik.
 	*/
 	
-	for (int index = 0;index < *length;index++) {
-		arg1 = 0;
-		arg2 = 0;
+	for (size_t index = 0;index < *sizeOfArray;index++) {
 
-		if (stackSize > 0) {
-			arg1 = appendToString(arg1, stack[stackSize - 1]);
-		}
-		if (stackSize > 1) {
-			arg2 = appendToString(arg2, stack[stackSize - 2]);
-		}
+		type = getExpType(array[index]);
 
 		/*jeœli i-ty symbol jest liczb¹, to od³ó¿ go na stos*/
-		if (getExpType(expressionArray[index]) == number) {
-			stack = appendToArray(stack, expressionArray[index], &stackSize);
+		if (type == number) {
+			stack = appendToArray(stack, array[index], &sizeOfStack);
 			continue;
 		}
 
-		/*jeœli i-ty symbol jest operatorem to:
+		/*
+			jeœli i-ty symbol jest operatorem to:
 			zdejmij ze stosu jeden element (ozn. a),
 			zdejmij ze stosu kolejny element (ozn. b),
-			od³ó¿ na stos wartoœæ b operator a.*/
-		if ((getExpType(expressionArray[index]) != number && getExpType(expressionArray[index]) != function
-				&& getExpType(expressionArray[index]) != undefined) && stackSize > 1) {
+			od³ó¿ na stos wartoœæ b operator a
+		*/
+		if (isOperator(type) == true && sizeOfStack > 1) {
+			args = appendToArray(args, stack[sizeOfStack - 1], &sizeOfArgs);
+			args = appendToArray(args, stack[sizeOfStack - 2], &sizeOfArgs);
+			stack = popArray(stack, &sizeOfStack, true);
+			stack = popArray(stack, &sizeOfStack, true);
 			
-			stack = popArray(stack, &stackSize, true);
-			stack = popArray(stack, &stackSize, true);
-			stack = appendToArray(stack, doMath(getExpType(expressionArray[index]), arg1, arg2), &stackSize);
+			string = emptyString(string);
+
+			string = appendToString(string,basicCalculation(args, type));
+
+			freeArray(args, &sizeOfArgs);
+
+			stack = appendToArray(stack,string, &sizeOfStack);
 		}
 
+		/*
+		jeœli i - ty symbol jest funkcj¹ to :
+		zdejmij ze stosu oczekiwan¹ liczbê parametrów funkcji(ozn.a1...an)
+			od³ó¿ na stos wynik funkcji dla parametrów a1...an
+		*/
+		if (type == function) {
+			switch (getFunction(array[index])) {
+			case 0:
+				//log
+				args = appendToArray(args, stack[sizeOfStack - 1], &sizeOfArgs);
+				args = appendToArray(args, stack[sizeOfStack - 2], &sizeOfArgs);
+				stack = popArray(stack, &sizeOfStack, true);
+				stack = popArray(stack, &sizeOfStack, true);
+
+				string = emptyString(string);
+
+				string = appendToString(string, functionCalc(args, getFunction(array[index])));
+
+				freeArray(args, &sizeOfArgs);
+
+				stack = appendToArray(stack, string, &sizeOfStack);
+				break;
+			case 1:
+				//e
+				string = emptyString(string);
+				string = appendToString(string, "2.71");
+				stack = appendToArray(stack, string, &sizeOfStack);
+				break;
+			case 2:
+				//e
+				string = emptyString(string);
+				string = appendToString(string, "3.14");
+				stack = appendToArray(stack, string, &sizeOfStack);
+				break;
+			case 3: case 4: case 5:
+				//factorial
+				args = appendToArray(args, stack[sizeOfStack - 1], &sizeOfArgs);
+				stack = popArray(stack, &sizeOfStack, true);
+
+				string = emptyString(string);
+
+				string = appendToString(string, functionCalc(args, getFunction(array[index])));
+
+				freeArray(args, &sizeOfArgs);
+
+				stack = appendToArray(stack, string, &sizeOfStack);
+				break;
+			};
+		}
 	}
 
 	if (stack != NULL) {
-		result = atof(stack[0]);
+		return atof(stack[0]);
 	}
 	
-	return  result;
+	return  0;
 }

@@ -20,6 +20,8 @@ int getOperatorPriority(expType operator) {
 		return 2;
 	case power:
 		return 3;
+	case function:
+		return 4;
 	}
 	return -1;
 }

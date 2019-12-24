@@ -15,4 +15,5 @@ void freeArray(char** array, size_t* sizeOfArray)
 		}
 	}
 
+	*sizeOfArray = 0;
 }

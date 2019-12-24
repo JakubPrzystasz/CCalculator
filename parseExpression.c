@@ -34,6 +34,10 @@ char** parseExpression(char* expression, size_t* sizeOfArray) {
 	//Store a part of math expression - temporary
 	char* string = 0;
 
+	//Types of tokens
+	expType charType = undefined;
+	expType stringType = undefined;
+
 	//When first character is '-' or '+' add 0 to output
 	//this will prevent from future errors in calculations
 	if (expression[0] == '-' || expression[0] == '+') {
@@ -42,25 +46,43 @@ char** parseExpression(char* expression, size_t* sizeOfArray) {
 
 	//Go through all string
 	for (size_t i = 0; i < sizeOfExpression; i++) {
-		
+
+		//Current character
 		char exp[2] = { expression[i],'\0' };
 		
+		//Type stored in char
+		charType = getExpType(&exp);
+
+		//Break when occured undefined character
+		if (charType == undefined) {
+			break;
+		}
+
+		//Type in string
+		stringType = getExpType(string);
+
 		if (string == NULL) {
 			string = appendToString(string, &exp);
 			continue;
 		}
 
-		if (getExpType(string) != getExpType(&exp)) {
+		//When expressions type is different
+		if (stringType != charType) {
 			array = appendToArray(array, string, sizeOfArray);
+
+			//when we need to add * betwen 
+			if (stringType == number && (charType == function || charType == leftBracket)) {
+				array = appendToArray(array, "*\0", sizeOfArray);
+			}
+
 			string = emptyString(string);
 			string = appendToString(string, &exp);
 			continue;
 		}
 
-		if (getExpType(string) == getExpType(&exp)) {
+		if (stringType == charType) {
 			//Split two operators eg. ))
-			if (getExpType(string) != number && getExpType(string) != function
-				&& getExpType(string) != undefined) {
+			if (getExpType(string) != number && getExpType(string) != function) {
 				array = appendToArray(array, string, sizeOfArray);
 				string = emptyString(string);
 				string = appendToString(string, &exp);
@@ -77,18 +99,28 @@ char** parseExpression(char* expression, size_t* sizeOfArray) {
 		array = appendToArray(array, string, sizeOfArray);
 	}
 
-	for (size_t i = 0;i < *sizeOfArray - 1;++i) {
-		if (getExpType(array[i]) == number && getExpType(array[i + 1]) == function) {
-			array = insertToArray(array, "*\0", sizeOfArray, i + 1);
-			i += 1;
-			continue;
-		}
-		if (getExpType(array[i]) == number && getExpType(array[i + 1]) == leftBracket) {
-			array = insertToArray(array, "*\0", sizeOfArray, i + 1);
-			i += 1;
-			continue;
-		}
-	}
+	////Expression is splitted in array, now we must 
+	////make functions and their agrs be in one place
+	////and check if there is some of undefined functions
+
+	//for (size_t i = 0; i < *sizeOfArray - 1; i++) {
+	//	if (getExpType(array[i]) == function) {
+	//		if (getFunction(array[i]) < 0) {
+	//			//Occured undefined function
+	//			printf("SYNTRAX ERROR\n");
+	//			break;
+	//		} else {
+	//			//No args
+	//			// 1 - e 2 - pi
+
+	//			//One arg
+	//			//  > 2
+	//			
+	//			//Two args
+	//			// == 0 log
+	//		}
+	//	}
+	//}
 
 	return array;
 }

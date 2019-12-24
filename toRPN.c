@@ -170,9 +170,6 @@ char** toRPN(char** array, size_t* sizeOfArray) {
 		free(stack[i]);
 	}
 
-
-	free(stack);
-
 	*sizeOfArray = sizeOfOutput;
 
 	return output;

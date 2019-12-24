@@ -25,9 +25,6 @@
     <Filter Include="Pliki źródłowe\Calculator">
       <UniqueIdentifier>{4c807835-3104-4175-809c-a90464889616}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\Calculator\Math">
-      <UniqueIdentifier>{209fc17f-4b42-481a-8b41-edbdfa954956}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -93,11 +90,17 @@
     <ClCompile Include="getExpType.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
-    <ClCompile Include="addition.c">
-      <Filter>Pliki źródłowe\Calculator\Math</Filter>
-    </ClCompile>
     <ClCompile Include="splitString.c">
       <Filter>Pliki źródłowe\String</Filter>
+    </ClCompile>
+    <ClCompile Include="isOperator.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="basicCalculation.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="functionCalc.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
