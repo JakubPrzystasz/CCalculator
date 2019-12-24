@@ -47,5 +47,7 @@ expType getExpType(char* expression) {
 		}
 	}
 
-	return function;
+	
+
+	return undefined;
 }

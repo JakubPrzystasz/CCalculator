@@ -26,5 +26,5 @@ double calculate(char* expression) {
 	rpnArray = toRPN(expressionArray, &sizeOfExpression);
 	/*DEBUG*/printArray(rpnArray, &sizeOfExpression);/*DEBUG*/
 
-	return computeRPN(rpnArray, &sizeOfExpression);
+	return 0;
 }

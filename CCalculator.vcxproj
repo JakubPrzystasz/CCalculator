@@ -123,12 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="addition.c" />
     <ClCompile Include="appendToArray.c" />
     <ClCompile Include="appendToString.c" />
     <ClCompile Include="bitmap.c" />
     <ClCompile Include="calculate.c" />
     <ClCompile Include="computeRPN.c" />
-    <ClCompile Include="doMath.c" />
     <ClCompile Include="editInArray.c" />
     <ClCompile Include="emptyString.c" />
     <ClCompile Include="freeArray.c" />
@@ -144,6 +144,7 @@
     <ClCompile Include="popArray.c" />
     <ClCompile Include="printArray.c" />
     <ClCompile Include="removeInArray.c" />
+    <ClCompile Include="splitString.c" />
     <ClCompile Include="toRPN.c" />
   </ItemGroup>
   <ItemGroup>
