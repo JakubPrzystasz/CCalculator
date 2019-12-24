@@ -6,7 +6,7 @@
 void freeArray(char** array, size_t* sizeOfArray)
 {
 	//If array is not null
-	if (array != NULL) {
+	if (array != NULL && *sizeOfArray != NULL) {
 		//Delete each of value
 		for (size_t i = 0; i < *sizeOfArray; i++) {
 			if (array[i] != NULL) {

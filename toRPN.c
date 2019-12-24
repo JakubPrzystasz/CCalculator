@@ -3,50 +3,56 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* CONVERT INFIX EXPRESSION TO POSTFIX EXPRESSION */
-char** toRPN(char** expressionArray, int* length) {
-	//output queue
+/* Convert infix to postfix */
+char** toRPN(char** array, size_t* sizeOfArray) {
+	
+	//Output Queue
 	char** output = 0;
+	size_t sizeOfOutput = 0;
 
-	//stack
+	//Stack for operators
 	char** stack = 0;
+	size_t sizeOfStack = 0;
+	
+	expType token = 0;
+	expType stackToken = 0;
 
-	int outputSize = 0, stackSize = 0, o1 = -1, o2 = -1;
+	for (size_t index = 0;index < *sizeOfArray;index++) {
 
-	for (int index = 0;index < *length;index++) {
+		token = getExpType(array[index]);
 
-		//Jeœli symbol jest liczb¹ dodaj go do kolejki wyjœcie.
-		if (isNumber(expressionArray[index])) {
-			output = appendToArray(output, expressionArray[index], &outputSize);
+		//If token is a number
+		if (token == number) {
+			output = appendToArray(output, array[index], &sizeOfOutput);
 			continue;
 		}
 
 		//Jeœli symbol jest funkcj¹ w³ó¿ go na stos.
-		if (getFunction(expressionArray[index]) >= 0) {
-			stack = appendToArray(stack, expressionArray[index], &outputSize);
+		if (token == function) {
+			stack = appendToArray(stack, array[index], &sizeOfStack);
 			continue;
 		}
 		
 		//Jeœli symbol jest znakiem oddzielaj¹cym argumenty funkcji (przecinek):
-		if (getOperator(expressionArray[index]) == 8) {
+		if (token == comma) {
 			/*Dopóki najwy¿szy element stosu nie jest lewym nawiasem,
 			zdejmij element ze stosu i dodaj go do kolejki wyjœcie.
 			Jeœli lewy nawias nie zosta³ napotkany oznacza to, ¿e znaki
 			oddzielaj¹ce zosta³y postawione w z³ym miejscu lub 
 			nawiasy s¹ Ÿle umieszczone.*/
 			
-			for (int i = stackSize - 1;i >= 0;i--) {
-				if (stack != NULL && stack[i] != NULL && getOperator(stack[i]) != 6) {
-					output = appendToArray(output, stack[i], &outputSize);
-					stack = popArray(stack, &stackSize, false);
+			for (int i = sizeOfStack - 1;i >= 0;i--) {
+				if (stack != NULL && stack[i] != NULL && getExpType(stack[i]) != leftBracket) {
+					output = appendToArray(output, stack[i], &sizeOfOutput);
+					stack = popArray(stack, &sizeOfStack, false);
 				}
 			}
 			continue;
 		}
 		
 		//Je¿eli symbol jest lewym nawiasem to w³ó¿ go na stos.
-		if (getOperator(expressionArray[index]) == 6) {
-			stack = appendToArray(stack, expressionArray[index], &stackSize);
+		if (token == leftBracket) {
+			stack = appendToArray(stack, array[index], &sizeOfStack);
 			continue;
 		}
 
@@ -56,16 +62,16 @@ char** toRPN(char** expressionArray, int* length) {
 		lewym nawiasem, kiedy dojdziesz do tego miejsca zdejmij lewy nawias ze 
 		stosu bez dok³adania go do kolejki wyjœcie. 
 		*/
-		if (getOperator(expressionArray[index]) == 7) {
-			for (int i = stackSize - 1;i >= 0;i--) {
+		if (token == rightBracket) {
+			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				if (stack != NULL && stack[i] != NULL) {
 					//usun nawias ze stosu 
-					if (getOperator(stack[i]) == 6) {
-						stack = popArray(stack, &stackSize, true);
+					if (getExpType(stack[i]) == leftBracket) {
+						stack = popArray(stack, &sizeOfStack, true);
 						continue;
 					} else {
-						output = appendToArray(output, stack[i], &outputSize);
-						stack = popArray(stack, &stackSize, false);
+						output = appendToArray(output, stack[i], &sizeOfOutput);
+						stack = popArray(stack, &sizeOfStack, false);
 					}
 				} else {
 					break;
@@ -76,15 +82,15 @@ char** toRPN(char** expressionArray, int* length) {
 			tak¿e do³ó¿ go do kolejki wyjœcie. Jeœli stos zostanie opró¿niony 
 			i nie napotkasz lewego nawiasu, oznacza to, ¿e nawiasy zosta³y Ÿle umieszczone.
 			*/
-			for (int i = stackSize - 1;i >= 0;i--) {
+			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				if (stack != NULL && stack[i] != NULL) {;
-					if (getOperator(stack[i]) == 6) {
-						stack = popArray(stack, &stackSize, true);
+					if (getExpType(stack[i]) == leftBracket) {
+						stack = popArray(stack, &sizeOfStack, true);
 						continue;
 					}
-					if (getFunction(stack[i]) >= 0) {
-						output = appendToArray(output, stack[i], &outputSize);
-						stack = popArray(stack, &stackSize, false);
+					if (getExpType(stack[i]) == function) {
+						output = appendToArray(output, stack[i], &sizeOfOutput);
+						stack = popArray(stack, &sizeOfStack, false);
 					}
 				}
 			}
@@ -102,52 +108,51 @@ char** toRPN(char** expressionArray, int* length) {
 				i wykonaj jeszcze raz 1)
 			2) w³ó¿ o1 na stos operatorów.
 		*/
-		if (getOperator(expressionArray[index]) >= 0 && 5 >= getOperator(expressionArray[index])) {
+		if (token != number && token != function && token != undefined) {
 			//stos pusty 
-			if (stackSize == 0) {
-				stack = appendToArray(stack, expressionArray[index], &stackSize);
+			if (sizeOfStack == 0) {
+				stack = appendToArray(stack, array[index], &sizeOfStack);
 				continue;
 			}
 			
-			o1 = getOperator(expressionArray[index]);
-			o2 = getOperator(stack[stackSize - 1]);
+			stackToken = getExpType(stack[sizeOfStack - 1]);
 			
 			//priorytet o1, jest wieszy od priorytetu o2
-			if (getOperatorPriority(o1) > getOperatorPriority(o2)) {
-				stack = appendToArray(stack, expressionArray[index], &stackSize);
+			if (getOperatorPriority(token) > getOperatorPriority(stackToken)) {
+				stack = appendToArray(stack, array[index], &sizeOfStack);
 				continue;
 			}
 
 
 			//wiekszy lub rowny priorytet na stosie
-			for (int i = stackSize - 1;i >= 0;i--) {
+			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				//usun nawias jesli jest na stosie
-				o2 = getOperator(stack[i]);
-				if (o2 == 6) {
-					stack = popArray(stack, &stackSize, true);
+				stackToken = getExpType(stack[i]);
+				if (getExpType == leftBracket) {
+					stack = popArray(stack, &sizeOfStack, true);
 					continue;
 				}
 
 
 				//lewostronnie ³¹czny
-				if (getOperatorTie(o1) == 0) {
-					if (getOperatorPriority(o1) <= getOperatorPriority(o2)) {
-						output = appendToArray(output, stack[i], &outputSize);
-						stack = popArray(stack, &stackSize, false);
+				if (getOperatorTie(token) == 0) {
+					if (getOperatorPriority(token) <= getOperatorPriority(stackToken)) {
+						output = appendToArray(output, stack[i], &sizeOfOutput);
+						stack = popArray(stack, &sizeOfStack, false);
 					}
 				}
 
 				//prawostronnie ³¹czny
-				if (getOperatorTie(o1) == 1) {
-					if (getOperatorPriority(o1) < getOperatorPriority(o2)) {
-						output = appendToArray(output, stack[i], &outputSize);
-						stack = popArray(stack, &stackSize, false);
+				if (getOperatorTie(token) == 1) {
+					if (getOperatorPriority(token) < getOperatorPriority(stackToken)) {
+						output = appendToArray(output, stack[i], &sizeOfOutput);
+						stack = popArray(stack, &sizeOfStack, false);
 					}
 				}
 
 			}
 
-			stack = appendToArray(stack, expressionArray[index], &stackSize);
+			stack = appendToArray(stack, array[index], &sizeOfStack);
 		}
 
 		//end of loop 
@@ -160,15 +165,15 @@ char** toRPN(char** expressionArray, int* length) {
 	oznacza to, ¿e nawiasy zosta³y Ÿle umieszczone.)
 	*/
 
-	for (int i = stackSize - 1;i >= 0;i--){
-		output = appendToArray(output, stack[i], &outputSize);
+	for (int i = sizeOfStack - 1;i >= 0;i--){
+		output = appendToArray(output, stack[i], &sizeOfOutput);
 		free(stack[i]);
 	}
 
 
 	free(stack);
 
-	*length = outputSize;
+	*sizeOfArray = sizeOfOutput;
 
 	return output;
 }

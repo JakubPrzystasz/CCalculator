@@ -15,6 +15,7 @@ char* appendToString(char* string, char* value) {
 	//Initialize new string
 	if (string == NULL) {
         string = (char*)malloc((strlen(value)+1)*sizeof(char));
+		//When allocation fails, prevent from copying data nowhere
 		if (string == NULL) {
 			return  NULL;
 		}
@@ -22,17 +23,25 @@ char* appendToString(char* string, char* value) {
 		return string;
 	} else {
     //Append value to existing string
-		tmpString = (char*)malloc((strlen((char*)string) + 1) * sizeof(char));
+		//Allocate memory for bigger string
+		tmpString = (char*)malloc((strlen((char*)string) + strlen((char*)value) + 1) * sizeof(char));
+		
+		//If allocation fails return old value
 		if (tmpString == NULL) {
-			return  NULL;
+			return string;
 		}
+		
+		//Copy old part of string
 		tmpString = strcpy(tmpString, string);
+		//Add new part
 		tmpString = strcat(tmpString, value);
 
+		//If something went wrong
 		if(tmpString == NULL){
-			return NULL;
+			return string;
 		}
 
+		//We dont need old string anymore
 		free(string);
 
 		return tmpString;

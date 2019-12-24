@@ -21,6 +21,10 @@ double calculate(char* expression) {
 	/*DEBUG*/printf("Expression array:\n");/*DEBUG*/
 	expressionArray = parseExpression(expression, &sizeOfExpression);
 	/*DEBUG*/printArray(expressionArray,&sizeOfExpression);/*DEBUG*/
-	
-	return 0;
+
+	/*DEBUG*/printf("RNP array:\n");/*DEBUG*/
+	rpnArray = toRPN(expressionArray, &sizeOfExpression);
+	/*DEBUG*/printArray(rpnArray, &sizeOfExpression);/*DEBUG*/
+
+	return computeRPN(rpnArray, &sizeOfExpression);
 }

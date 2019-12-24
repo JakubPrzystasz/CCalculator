@@ -9,37 +9,29 @@
 
 	/* Calculator */
 
-
-typedef enum day { sun, mon, tue, wed, thu, fri, sat } day;
-
 	typedef enum expType {
 		number,
-		operator,
-		bracket,
-		function,
-		delimiter,
-		undefined,
-	} expType;
-
-	typedef enum Operator {
-		plus,
-		minus,
-		multiply,
-		divide,
+		addition,
+		subtraction,
+		multiplication,
+		division,
 		power,
 		modulo,
 		leftBracket,
 		rightBracket,
 		comma,
-	} Operator;
-	
+		function,
+		undefined
+	} expType;
+
 	char** parseExpression(char* expression,size_t* sizeOfArray);
-	char** toRPN(char** expressionArray, int* length);
+	expType getExpType(char* expression);
+	char** toRPN(char** array, size_t* sizeOfArray);
+
+
 	char* doMath(int operator,char* arg1, char* arg2);
-	expType getType(char* expression);
-	Operator getOperator(char* expression);
-	int getOperatorPriority(int operator);
-	int getOperatorTie(int operator);
+	int getOperatorPriority(expType operator);
+	int getOperatorTie(expType operator);
 	int getFunction(char* expression);
 	bool isNumber(char* expression);
 	bool isDigit(char expression);

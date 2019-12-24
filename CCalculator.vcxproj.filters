@@ -66,9 +66,6 @@
     <ClCompile Include="calculate.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
-    <ClCompile Include="getOperator.c">
-      <Filter>Pliki źródłowe\Calculator</Filter>
-    </ClCompile>
     <ClCompile Include="getOperatorPriority.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
@@ -93,7 +90,7 @@
     <ClCompile Include="isNumber.c">
       <Filter>Pliki źródłowe\String</Filter>
     </ClCompile>
-    <ClCompile Include="getType.c">
+    <ClCompile Include="getExpType.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
   </ItemGroup>

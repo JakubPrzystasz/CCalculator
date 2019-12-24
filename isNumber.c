@@ -5,7 +5,9 @@
 
 /* Check if the given string is a number */
 bool isNumber(char* expression) {
+
 	size_t expLength = strlen(expression);
+
 	if (expLength < 1) { return false; }
 
 	for (size_t i = 0; i < expLength; i++) {
@@ -18,4 +20,5 @@ bool isNumber(char* expression) {
 	}
 
 	return true;
+
 }

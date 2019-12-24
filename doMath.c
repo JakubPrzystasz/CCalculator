@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 
-char* doMath(int operator,char* arg1, char* arg2) {
+char* doMath(expType operator,char* arg1, char* arg2) {
 	double value = 0;
 	char* result = 0;
 	result = appendToString(result, "");
@@ -12,22 +12,22 @@ char* doMath(int operator,char* arg1, char* arg2) {
 	double ARG2 = atof(arg2);
 
 	switch (operator) {
-	case 0:
+	case addition:
 		value = ARG2 + ARG1;
 		break;
-	case 1:
+	case subtraction:
 		value = ARG2 - ARG1;
 		break;
-	case 2:
+	case multiplication:
 		value = ARG2 * ARG1;
 		break;
-	case 3:
+	case division:
 		value = ARG2 / ARG1;
 		break;
-	case 4:
+	case power:
 		value = pow(ARG2, ARG1);
 		break;
-	case 5:
+	case modulo:
 		value = fmod(ARG2, ARG1);
 		break;
 	}

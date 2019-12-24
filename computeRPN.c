@@ -38,7 +38,7 @@ double computeRPN(char** expressionArray, int* length) {
 		}
 
 		/*jeœli i-ty symbol jest liczb¹, to od³ó¿ go na stos*/
-		if (isNumber(expressionArray[index]) == 1) {
+		if (getExpType(expressionArray[index]) == number) {
 			stack = appendToArray(stack, expressionArray[index], &stackSize);
 			continue;
 		}
@@ -47,11 +47,12 @@ double computeRPN(char** expressionArray, int* length) {
 			zdejmij ze stosu jeden element (ozn. a),
 			zdejmij ze stosu kolejny element (ozn. b),
 			od³ó¿ na stos wartoœæ b operator a.*/
-		if (getOperator(expressionArray[index]) >= 0 && 5 >= getOperator(expressionArray[index]) && stackSize > 1) {
+		if ((getExpType(expressionArray[index]) != number && getExpType(expressionArray[index]) != function
+				&& getExpType(expressionArray[index]) != undefined) && stackSize > 1) {
 			
 			stack = popArray(stack, &stackSize, true);
 			stack = popArray(stack, &stackSize, true);
-			stack = appendToArray(stack, doMath(getOperator(expressionArray[index]), arg1, arg2), &stackSize);
+			stack = appendToArray(stack, doMath(getExpType(expressionArray[index]), arg1, arg2), &stackSize);
 		}
 
 	}
