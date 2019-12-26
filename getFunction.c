@@ -3,8 +3,8 @@
 #include <string.h>
 
 
-/* Check if the string is the function name */
-int getFunction(char* expression) {
+/* Check if the string is a function name */
+byte getFunction(char* expression) {
 
 	const char mathFunctions[8][3] = {
 		"log",

@@ -51,17 +51,8 @@
     <ClCompile Include="insertToArray.c">
       <Filter>Pliki źródłowe\Array</Filter>
     </ClCompile>
-    <ClCompile Include="computeRPN.c">
-      <Filter>Pliki źródłowe\Calculator</Filter>
-    </ClCompile>
-    <ClCompile Include="toRPN.c">
-      <Filter>Pliki źródłowe\Calculator</Filter>
-    </ClCompile>
     <ClCompile Include="printArray.c">
       <Filter>Pliki źródłowe\Array</Filter>
-    </ClCompile>
-    <ClCompile Include="calculate.c">
-      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="getOperatorPriority.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
@@ -74,9 +65,6 @@
     </ClCompile>
     <ClCompile Include="bitmap.c">
       <Filter>Pliki źródłowe\Bitmap</Filter>
-    </ClCompile>
-    <ClCompile Include="parseExpression.c">
-      <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
     <ClCompile Include="emptyString.c">
       <Filter>Pliki źródłowe\String</Filter>
@@ -96,10 +84,19 @@
     <ClCompile Include="isOperator.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
-    <ClCompile Include="basicCalculation.c">
+    <ClCompile Include="calculateString.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
-    <ClCompile Include="functionCalc.c">
+    <ClCompile Include="toPostfix.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="calculatePostfix.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="parseString.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="calculateValue.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
   </ItemGroup>

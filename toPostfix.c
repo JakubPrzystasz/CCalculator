@@ -4,7 +4,7 @@
 #include <string.h>
 
 /* Convert infix to postfix */
-char** toRPN(char** array, size_t* sizeOfArray) {
+char** toPostfix(char** array, size_t* sizeOfArray) {
 	
 	//Output Queue
 	char** output = 0;

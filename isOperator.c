@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 bool isOperator(expType operator) {
+
 	switch (operator) {
 		case addition: case subtraction: case multiplication: case division:
 		case power: case modulo:
@@ -10,5 +11,6 @@ bool isOperator(expType operator) {
 		default:
 			return false;
 	};
+
 	return false;
 }

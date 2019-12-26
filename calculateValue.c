@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 
-char* basicCalculation(char** args,expType operator) {
+char* calculateValue(char** args,expType operator) {
 	double value = 0;
 	char tmp[100];
 	char* result = 0;

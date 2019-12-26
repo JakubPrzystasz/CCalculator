@@ -2,8 +2,8 @@
 #include "calculator.h"
 #include <string.h>
 
-/* Calculate expression value */
-double calculate(char* expression) {
+/* Calculate value of string */
+double calculateString(char* expression) {
 	
 	//Initialize empty array of strings to store parsed expression
 	char** expressionArray = 0;
@@ -19,13 +19,12 @@ double calculate(char* expression) {
 
 	/*DEBUG*/printf("Expression: {%s}\n",expression);/*DEBUG*/
 	/*DEBUG*/printf("Expression array:\n");/*DEBUG*/
-	expressionArray = parseExpression(expression, &sizeOfExpression);
+	expressionArray = parseString(expression, &sizeOfExpression);
 	/*DEBUG*/printArray(expressionArray,&sizeOfExpression);/*DEBUG*/
 
 	/*DEBUG*/printf("\nRNP array:\n");/*DEBUG*/
-	rpnArray = toRPN(expressionArray, &sizeOfExpression);
+	rpnArray = toPostfix(expressionArray, &sizeOfExpression);
 	/*DEBUG*/printArray(rpnArray, &sizeOfExpression);/*DEBUG*/
 
-
-	return computeRPN(rpnArray,&sizeOfExpression);
+	return calculatePostfix(rpnArray,&sizeOfExpression);
 }

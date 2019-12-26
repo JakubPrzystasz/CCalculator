@@ -6,7 +6,7 @@
 #include <math.h>
 
 /* Compute value of RPN expression */
-double computeRPN(char** array, size_t* sizeOfArray) {
+double calculatePostfix(char** array, size_t* sizeOfArray) {
 	
 	char** stack = 0;
 	size_t sizeOfStack = 0;

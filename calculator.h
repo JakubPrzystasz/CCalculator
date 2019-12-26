@@ -23,19 +23,17 @@
 		function,
 		undefined
 	} expType;
+	typedef char byte;
 
+	bool isOperator(expType operator);
+	byte getOperatorPriority(expType operator);
+	byte getOperatorTie(expType operator);
+	byte getFunction(char* expression);
 	expType getExpType(char* expression);
-	char** parseExpression(char* expression,size_t* sizeOfArray);
-	char** toRPN(char** array, size_t* sizeOfArray);
-
-	double computeRPN(char** array, size_t* sizeOfArray);
-
-	char* basicCalculation(char** args,expType operator);
-	char* functionCalc(char** args,int function);
-	int getOperatorPriority(expType operator);
-	int getOperatorTie(expType operator);
-	int getFunction(char* expression);
-	bool isOperator(expType token);
-	double calculate(char* expression);
+	char** parseString(char* expression,size_t* sizeOfArray);
+	char** toPostfix(char** array, size_t* sizeOfArray);
+	char* calculateValue(char** args, expType operator);
+	double calculateString(char* expression);
+	double calculatePostfix(char** array, size_t* sizeOfArray);
 
 #endif

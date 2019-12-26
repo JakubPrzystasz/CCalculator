@@ -7,7 +7,7 @@
 #include <string.h>
 
 /* Parse string to array of math expressions */
-char** parseExpression(char* expression, size_t* sizeOfArray) {
+char** parseString(char* expression, size_t* sizeOfArray) {
 	/*
 		IMPORTANT!
 		dot "." is a floating point

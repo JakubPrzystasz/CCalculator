@@ -1,15 +1,14 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "calculator.h"
 
-int getOperatorPriority(expType operator) {
+byte getOperatorPriority(expType operator) {
 	/*
 	Operator 	Priorytet
-
 	( 	        0
 	+ - )   	1
 	* / %   	2
 	^ 	        3
-
+	function    4
 	*/
 	switch (operator) {
 	case leftBracket:

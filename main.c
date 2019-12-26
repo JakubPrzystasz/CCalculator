@@ -5,7 +5,8 @@
 int main(int argc, char** argv)
 {
 	char* expression = 0;
-	expression = appendToString(expression, "sin0.2");
-	printf("Result: {%lf}\n",calculate(expression));
+	expression = appendToString(expression, "sin(21)");
+	printf("Result: {%lf}\n",calculateString(expression));
+
 	return 0;
 }
