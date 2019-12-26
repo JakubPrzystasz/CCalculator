@@ -2,7 +2,6 @@
 #include "calculator.h"
 #include "cstring.h"
 #include "array.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -34,9 +33,11 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 	//Store a part of math expression - temporary
 	char* string = 0;
 
-	//Types of tokens
-	expType charType = undefined;
-	expType stringType = undefined;
+	//Type of char
+	objectType charType = undefined;
+	
+	//Type of string 
+	objectType stringType = undefined;
 
 	//When first character is '-' or '+' add 0 to output
 	//this will prevent from future errors in calculations
@@ -51,7 +52,7 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 		char exp[2] = { expression[i],'\0' };
 		
 		//Type stored in char
-		charType = getExpType(&exp);
+		charType = getObjectType(&exp);
 
 		//Break when occured undefined character
 		if (charType == undefined) {
@@ -59,7 +60,7 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 		}
 
 		//Type in string
-		stringType = getExpType(string);
+		stringType = getObjectType(string);
 
 		if (string == NULL) {
 			string = appendToString(string, &exp);
@@ -82,7 +83,7 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 
 		if (stringType == charType) {
 			//Split two operators eg. ))
-			if (getExpType(string) != number && getExpType(string) != function) {
+			if (getObjectType(string) != number && getObjectType(string) != function) {
 				array = appendToArray(array, string, sizeOfArray);
 				string = emptyString(string);
 				string = appendToString(string, &exp);
@@ -98,29 +99,6 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 	if (string != NULL) {
 		array = appendToArray(array, string, sizeOfArray);
 	}
-
-	////Expression is splitted in array, now we must 
-	////make functions and their agrs be in one place
-	////and check if there is some of undefined functions
-
-	//for (size_t i = 0; i < *sizeOfArray - 1; i++) {
-	//	if (getExpType(array[i]) == function) {
-	//		if (getFunction(array[i]) < 0) {
-	//			//Occured undefined function
-	//			printf("SYNTRAX ERROR\n");
-	//			break;
-	//		} else {
-	//			//No args
-	//			// 1 - e 2 - pi
-
-	//			//One arg
-	//			//  > 2
-	//			
-	//			//Two args
-	//			// == 0 log
-	//		}
-	//	}
-	//}
 
 	return array;
 }

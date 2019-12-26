@@ -2,7 +2,7 @@
 #include "calculator.h"
 #include <stdbool.h>
 
-bool isOperator(expType operator) {
+bool isOperator(objectType operator) {
 
 	switch (operator) {
 		case addition: case subtraction: case multiplication: case division:

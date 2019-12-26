@@ -75,9 +75,6 @@
     <ClCompile Include="isNumber.c">
       <Filter>Pliki źródłowe\String</Filter>
     </ClCompile>
-    <ClCompile Include="getExpType.c">
-      <Filter>Pliki źródłowe\Calculator</Filter>
-    </ClCompile>
     <ClCompile Include="splitString.c">
       <Filter>Pliki źródłowe\String</Filter>
     </ClCompile>
@@ -98,6 +95,21 @@
     </ClCompile>
     <ClCompile Include="calculateValue.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="getObjectType.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="doubleToString.c">
+      <Filter>Pliki źródłowe\String</Filter>
+    </ClCompile>
+    <ClCompile Include="reverseString.c">
+      <Filter>Pliki źródłowe\String</Filter>
+    </ClCompile>
+    <ClCompile Include="intToString.c">
+      <Filter>Pliki źródłowe\String</Filter>
+    </ClCompile>
+    <ClCompile Include="trimString.c">
+      <Filter>Pliki źródłowe\String</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

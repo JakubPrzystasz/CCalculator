@@ -16,7 +16,7 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 	
 	char* string = 0;
 
-	expType type = undefined;
+	objectType type = undefined;
 
 	/*
 	    Dla wszystkich symboli z wyra¿enia ONP wykonuj:
@@ -33,7 +33,7 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 	
 	for (size_t index = 0;index < *sizeOfArray;index++) {
 
-		type = getExpType(array[index]);
+		type = getObjectType(array[index]);
 
 		/*jeœli i-ty symbol jest liczb¹, to od³ó¿ go na stos*/
 		if (type == number) {
@@ -55,7 +55,7 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 			
 			string = emptyString(string);
 
-			string = appendToString(string,basicCalculation(args, type));
+			//string = appendToString(string,calculateValue(args, type));
 
 			freeArray(args, &sizeOfArgs);
 
@@ -78,7 +78,7 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 
 				string = emptyString(string);
 
-				string = appendToString(string, functionCalc(args, getFunction(array[index])));
+				//string = appendToString(string, calculateValue(args, getFunction(array[index])));
 
 				freeArray(args, &sizeOfArgs);
 
@@ -103,7 +103,7 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 
 				string = emptyString(string);
 
-				string = appendToString(string, functionCalc(args, getFunction(array[index])));
+				//string = appendToString(string, functionCalc(args, getFunction(array[index])));
 
 				freeArray(args, &sizeOfArgs);
 

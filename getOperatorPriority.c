@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "calculator.h"
 
-byte getOperatorPriority(expType operator) {
+byte getOperatorPriority(objectType operator) {
 	/*
 	Operator 	Priorytet
 	( 	        0

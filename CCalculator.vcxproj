@@ -129,13 +129,15 @@
     <ClCompile Include="bitmap.c" />
     <ClCompile Include="calculateString.c" />
     <ClCompile Include="calculatePostfix.c" />
+    <ClCompile Include="doubleToString.c" />
     <ClCompile Include="editInArray.c" />
     <ClCompile Include="emptyString.c" />
     <ClCompile Include="freeArray.c" />
-    <ClCompile Include="getExpType.c" />
+    <ClCompile Include="getObjectType.c" />
     <ClCompile Include="getOperatorPriority.c" />
     <ClCompile Include="getOperatorTie.c" />
     <ClCompile Include="insertToArray.c" />
+    <ClCompile Include="intToString.c" />
     <ClCompile Include="isDigit.c" />
     <ClCompile Include="getFunction.c" />
     <ClCompile Include="isNumber.c" />
@@ -145,8 +147,10 @@
     <ClCompile Include="popArray.c" />
     <ClCompile Include="printArray.c" />
     <ClCompile Include="removeInArray.c" />
+    <ClCompile Include="reverseString.c" />
     <ClCompile Include="splitString.c" />
     <ClCompile Include="toPostfix.c" />
+    <ClCompile Include="trimString.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array.h" />

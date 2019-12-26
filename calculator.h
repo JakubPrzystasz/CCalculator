@@ -9,7 +9,7 @@
 
 	/* Calculator */
 
-	typedef enum expType {
+	typedef enum objectType {
 		number,
 		addition,
 		subtraction,
@@ -22,18 +22,19 @@
 		comma,
 		function,
 		undefined
-	} expType;
+	} objectType;
+
 	typedef char byte;
 
-	bool isOperator(expType operator);
-	byte getOperatorPriority(expType operator);
-	byte getOperatorTie(expType operator);
-	byte getFunction(char* expression);
-	expType getExpType(char* expression);
-	char** parseString(char* expression,size_t* sizeOfArray);
+	bool isOperator(objectType operator);
+	byte getOperatorPriority(objectType operator);
+	byte getOperatorTie(objectType operator);
+	byte getFunction(char* string);
+	objectType getObjectType(char* string);
+	char** parseString(char* string,size_t* sizeOfArray);
 	char** toPostfix(char** array, size_t* sizeOfArray);
-	char* calculateValue(char** args, expType operator);
-	double calculateString(char* expression);
+	double calculateValue(char** args, objectType operator);
+	double calculateString(char* string);
 	double calculatePostfix(char** array, size_t* sizeOfArray);
 
 #endif

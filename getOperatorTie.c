@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "calculator.h"
 
-byte getOperatorTie(expType operator) {
+byte getOperatorTie(objectType operator) {
 
 	//0 - left 1 - right
 

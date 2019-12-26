@@ -14,12 +14,12 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 	char** stack = 0;
 	size_t sizeOfStack = 0;
 	
-	expType token = 0;
-	expType stackToken = 0;
+	objectType token = 0;
+	objectType stackToken = 0;
 
 	for (size_t index = 0;index < *sizeOfArray;index++) {
 
-		token = getExpType(array[index]);
+		token = getObjectType(array[index]);
 
 		//If token is a number
 		if (token == number) {
@@ -42,7 +42,7 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 			nawiasy s¹ Ÿle umieszczone.*/
 			
 			for (int i = sizeOfStack - 1;i >= 0;i--) {
-				if (stack != NULL && stack[i] != NULL && getExpType(stack[i]) != leftBracket) {
+				if (stack != NULL && stack[i] != NULL && getObjectType(stack[i]) != leftBracket) {
 					output = appendToArray(output, stack[i], &sizeOfOutput);
 					stack = popArray(stack, &sizeOfStack, false);
 				}
@@ -66,7 +66,7 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				if (stack != NULL && stack[i] != NULL) {
 					//usun nawias ze stosu 
-					if (getExpType(stack[i]) == leftBracket) {
+					if (getObjectType(stack[i]) == leftBracket) {
 						stack = popArray(stack, &sizeOfStack, true);
 						continue;
 					} else {
@@ -84,11 +84,11 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 			*/
 			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				if (stack != NULL && stack[i] != NULL) {;
-					if (getExpType(stack[i]) == leftBracket) {
+					if (getObjectType(stack[i]) == leftBracket) {
 						stack = popArray(stack, &sizeOfStack, true);
 						continue;
 					}
-					if (getExpType(stack[i]) == function) {
+					if (getObjectType(stack[i]) == function) {
 						output = appendToArray(output, stack[i], &sizeOfOutput);
 						stack = popArray(stack, &sizeOfStack, false);
 					}
@@ -115,7 +115,7 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 				continue;
 			}
 			
-			stackToken = getExpType(stack[sizeOfStack - 1]);
+			stackToken = getObjectType(stack[sizeOfStack - 1]);
 			
 			//priorytet o1, jest wieszy od priorytetu o2
 			if (getOperatorPriority(token) > getOperatorPriority(stackToken)) {
@@ -127,8 +127,8 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 			//wiekszy lub rowny priorytet na stosie
 			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				//usun nawias jesli jest na stosie
-				stackToken = getExpType(stack[i]);
-				if (getExpType == leftBracket) {
+				stackToken = getObjectType(stack[i]);
+				if (getObjectType == leftBracket) {
 					stack = popArray(stack, &sizeOfStack, true);
 					continue;
 				}

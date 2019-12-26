@@ -3,9 +3,9 @@
 #include <stdbool.h>
 
 /* Check if given character is a part of number */
-bool isDigit(char expression) {
+bool isDigit(char string) {
 
-	if (((int)expression >= 48 && (int)expression <= 57) || (int)expression == 46) {
+	if (((int)string >= 48 && (int)string <= 57) || (int)string == 46) {
 		return true;
 	}
 	return false;

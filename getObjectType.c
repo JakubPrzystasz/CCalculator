@@ -5,26 +5,26 @@
 #include <string.h>
 
 /* Get exp type stored in string */
-expType getExpType(char* expression) {
+objectType getObjectType(char* string) {
 	
 	//Bypass null reference
-	if (expression == NULL) {
+	if (string == NULL) {
 		return undefined;
 	}
 
 	//Length of expression
-	size_t expLength = strlen(expression);
+	size_t expLength = strlen(string);
 
 	if (expLength < 1) { return undefined; }
 
 	//Number
-	if (isNumber(expression)) {
+	if (isNumber(string)) {
 		return number;
 	}
 
 	//Operator
 	if (expLength == 1) {
-		switch (expression[0])
+		switch (string[0])
 		{
 			case '+':
 				return addition;

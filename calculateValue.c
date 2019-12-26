@@ -4,10 +4,8 @@
 #include <stdio.h>
 #include <math.h>
 
-char* calculateValue(char** args,expType operator) {
+double calculateValue(char** args, objectType operator) {
 	double value = 0;
-	char tmp[100];
-	char* result = 0;
 	double arg[2] = { atof(args[0]), atof(args[1]) };
 
 	switch (operator) {
@@ -29,8 +27,9 @@ char* calculateValue(char** args,expType operator) {
 	case modulo:
 		value = fmod(arg[1], arg[0]);
 		break;
+	case function:
+		break;
 	}
-	sprintf(tmp, "%lf", value);
-	result = appendToString(result, tmp);
-	return result;
+
+	return value;
 }
