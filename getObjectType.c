@@ -13,17 +13,17 @@ objectType getObjectType(char* string) {
 	}
 
 	//Length of expression
-	size_t expLength = strlen(string);
+	size_t strLength = strlen(string);
 
-	if (expLength < 1) { return undefined; }
+	if (strLength < 1) { return undefined; }
 
 	//Number
 	if (isNumber(string)) {
 		return number;
 	}
 
-	//Operator
-	if (expLength == 1) {
+	//Operator and function
+	if (strLength == 1) {
 		switch (string[0])
 		{
 			case '+':
@@ -44,8 +44,32 @@ objectType getObjectType(char* string) {
 				return rightBracket;
 			case ',':
 				return comma;
+			case '!':
+				return factorial;
 		}
 	}
 
-	return function;
+	//Function
+
+	if (strcmp("log", string) == 0) {
+		return flog;
+	}
+
+	if (strcmp("sin", string) == 0) {
+		return fsin;
+	}
+
+	if (strcmp("cos", string) == 0) {
+		return fcos;
+	}
+
+	if (strcmp("tg", string) == 0) {
+		return ftg;
+	}
+
+	if (strcmp("ctg", string) == 0) {
+		return fctg;
+	}
+
+	return undefined;
 }

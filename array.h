@@ -7,12 +7,18 @@
 
 	/* Array  */
 
-	void freeArray(char** array, size_t* sizeOfArray);
-	void printArray(char** array, size_t* sizeOfArray);
-	char** popArray(char** array, size_t* sizeOfArray, bool deleteValue);
-	char** removeInArray(char** array, size_t* sizeOfArray, size_t index,bool deleteValue);
-	char** appendToArray(char** array, char* value, size_t* sizeOfArray);
-	char** insertToArray(char** array, char* value, size_t* sizeOfArray, size_t index);
-	char** editInArray(char** array, char* value, size_t* sizeOfArray, size_t index);
+	typedef enum Type {
+		tString,
+		tInt,
+		tDouble,
+	} Type;
+
+	void freeArray(void** array, size_t* sizeOfArray, Type type);
+	void printArray(void** array, size_t* sizeOfArray, Type type);
+	void** popArray(void** array, size_t* sizeOfArray, bool deleteValue, Type type);
+	void** removeInArray(void** array, size_t* sizeOfArray, size_t index,bool deleteValue, Type type);
+	void** appendToArray(void** array, void* value, size_t* sizeOfArray, Type type);
+	void** insertToArray(void** array, void* value, size_t* sizeOfArray, size_t index, Type type);
+	void** editInArray(void** array, void* value, size_t* sizeOfArray, size_t index, Type type);
 
 #endif

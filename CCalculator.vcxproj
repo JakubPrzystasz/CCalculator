@@ -139,12 +139,13 @@
     <ClCompile Include="insertToArray.c" />
     <ClCompile Include="intToString.c" />
     <ClCompile Include="isDigit.c" />
-    <ClCompile Include="getFunction.c" />
+    <ClCompile Include="isFunction.c" />
     <ClCompile Include="isNumber.c" />
     <ClCompile Include="isOperator.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="parseString.c" />
     <ClCompile Include="popArray.c" />
+    <ClCompile Include="popString.c" />
     <ClCompile Include="printArray.c" />
     <ClCompile Include="removeInArray.c" />
     <ClCompile Include="reverseString.c" />

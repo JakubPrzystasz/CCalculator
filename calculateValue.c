@@ -4,32 +4,9 @@
 #include <stdio.h>
 #include <math.h>
 
-double calculateValue(char** args, objectType operator) {
-	double value = 0;
-	double arg[2] = { atof(args[0]), atof(args[1]) };
+char** calculateValue(char** array,size_t* sizeOfArray, objectType operator) {
+	
 
-	switch (operator) {
-	case addition:
-		value = arg[1] + arg[0];
-		break;
-	case subtraction:
-		value = arg[1] - arg[0];
-		break;
-	case multiplication:
-		value = arg[1] * arg[0];
-		break;
-	case division:
-		value = arg[1] / arg[0];
-		break;
-	case power:
-		value = pow(arg[1], arg[0]);
-		break;
-	case modulo:
-		value = fmod(arg[1], arg[0]);
-		break;
-	case function:
-		break;
-	}
 
-	return value;
+	return array;
 }

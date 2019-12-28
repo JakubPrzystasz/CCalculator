@@ -19,8 +19,11 @@ byte getOperatorPriority(objectType operator) {
 		return 2;
 	case power:
 		return 3;
-	case function:
+	}
+	
+	if (isFunction(operator)) {
 		return 4;
 	}
+
 	return -1;
 }

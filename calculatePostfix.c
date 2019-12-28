@@ -11,9 +11,6 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 	char** stack = 0;
 	size_t sizeOfStack = 0;
 
-	char** args = 0;
-	size_t sizeOfArgs = 0;
-	
 	char* string = 0;
 
 	objectType type = undefined;
@@ -37,7 +34,7 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 
 		/*jeœli i-ty symbol jest liczb¹, to od³ó¿ go na stos*/
 		if (type == number) {
-			stack = appendToArray(stack, array[index], &sizeOfStack);
+			stack = appendToArray(stack, array[index], &sizeOfStack, tString);
 			continue;
 		}
 
@@ -47,19 +44,8 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 			zdejmij ze stosu kolejny element (ozn. b),
 			od³ó¿ na stos wartoœæ b operator a
 		*/
-		if (isOperator(type) == true && sizeOfStack > 1) {
-			args = appendToArray(args, stack[sizeOfStack - 1], &sizeOfArgs);
-			args = appendToArray(args, stack[sizeOfStack - 2], &sizeOfArgs);
-			stack = popArray(stack, &sizeOfStack, true);
-			stack = popArray(stack, &sizeOfStack, true);
-			
-			string = emptyString(string);
-
-			//string = appendToString(string,calculateValue(args, type));
-
-			freeArray(args, &sizeOfArgs);
-
-			stack = appendToArray(stack,string, &sizeOfStack);
+		if (isOperator(type) && sizeOfStack > 1) {
+			stack = calculateValue(stack, &sizeOfStack, type);
 		}
 
 		/*
@@ -67,49 +53,8 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 		zdejmij ze stosu oczekiwan¹ liczbê parametrów funkcji(ozn.a1...an)
 			od³ó¿ na stos wynik funkcji dla parametrów a1...an
 		*/
-		if (type == function) {
-			switch (getFunction(array[index])) {
-			case 0:
-				//log
-				args = appendToArray(args, stack[sizeOfStack - 1], &sizeOfArgs);
-				args = appendToArray(args, stack[sizeOfStack - 2], &sizeOfArgs);
-				stack = popArray(stack, &sizeOfStack, true);
-				stack = popArray(stack, &sizeOfStack, true);
-
-				string = emptyString(string);
-
-				//string = appendToString(string, calculateValue(args, getFunction(array[index])));
-
-				freeArray(args, &sizeOfArgs);
-
-				stack = appendToArray(stack, string, &sizeOfStack);
-				break;
-			case 1:
-				//e
-				string = emptyString(string);
-				string = appendToString(string, "2.71");
-				stack = appendToArray(stack, string, &sizeOfStack);
-				break;
-			case 2:
-				//e
-				string = emptyString(string);
-				string = appendToString(string, "3.14");
-				stack = appendToArray(stack, string, &sizeOfStack);
-				break;
-			case 3: case 4: case 5:
-				//factorial
-				args = appendToArray(args, stack[sizeOfStack - 1], &sizeOfArgs);
-				stack = popArray(stack, &sizeOfStack, true);
-
-				string = emptyString(string);
-
-				//string = appendToString(string, functionCalc(args, getFunction(array[index])));
-
-				freeArray(args, &sizeOfArgs);
-
-				stack = appendToArray(stack, string, &sizeOfStack);
-				break;
-			};
+		if (isFunction(type) && sizeOfStack > 1) {
+			stack = calculateValue(stack, &sizeOfStack, type);
 		}
 	}
 

@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 /* Convert integer to readable string */
-char* intToString(uint64_t value) {
+char* intToString(int64_t value) {
 	
 	//Sign of value
 	bool valSign = value >= 0 ? true : false;
@@ -19,7 +19,7 @@ char* intToString(uint64_t value) {
 		return string;
 	}
 
-	//Absolute value of value
+	//Absolute value
 	if (!valSign) {
 		value *= -1;
 	}
@@ -30,6 +30,11 @@ char* intToString(uint64_t value) {
 		string = appendToString(string,&tmp);
 		value =  value / 10;
 		if (value == 0) { break; }
+	}
+
+	//Leading minus
+	if (!valSign) {
+		string = appendToString(string, "-");
 	}
 
 	reverseString(string);

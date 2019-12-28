@@ -6,7 +6,7 @@
 #include <string.h>
 
 /* Delete last value */
-char** popArray(char** array, size_t* sizeOfArray,bool deleteValue) {
+void** popArray(void** array, size_t* sizeOfArray,bool deleteValue,Type type) {
 	
 	//If array is empty
 	if (array == NULL || *sizeOfArray < 1){
@@ -21,17 +21,27 @@ char** popArray(char** array, size_t* sizeOfArray,bool deleteValue) {
 	if (*sizeOfArray == 1) {
 		//Check if we have to delete value
 		if (deleteValue == true) {
-			free(array);
+			switch (type) {
+			case tString:
+				free((char*)array);
+				break;
+			case tInt:
+				free((int*)array);
+				break;
+			case tDouble:
+				free((double*)array);
+				break;
+			}
 		}
 		*sizeOfArray = 0;
 		return 0;
 	}
 
 	//Store pointer to array, to avoid memory leak of array
-	char** tmpArray = array;
+	void** tmpArray = array;
 
 	//Pointer to last element of array
-	char* tmpVal = array[*sizeOfArray - 1];
+	void* tmpVal = array[*sizeOfArray - 1];
 
 	//Delete last element from memory
 	if (deleteValue == true) {
@@ -39,11 +49,22 @@ char** popArray(char** array, size_t* sizeOfArray,bool deleteValue) {
 	}
 
 	//Allocate new space for array
-	array = (char**)realloc(array, (*sizeOfArray - 1) * sizeof(*array));
+	switch (type) {
+	case tString:
+		array = (char**)realloc(array, (*sizeOfArray - 1) * sizeof(char*));
+		break;
+	case tInt:
+		array = (int**)realloc(array, (*sizeOfArray - 1) * sizeof(int*));
+		break;
+	case tDouble:
+		array = (double**)realloc(array, (*sizeOfArray - 1) * sizeof(double*));
+		break;
+	};
+
 	
 	//When allocation fails, free all memory
 	if(array == NULL){
-		freeArray(tmpArray, *sizeOfArray);
+		freeArray(tmpArray, *sizeOfArray,type);
 		return 0;
 	}
 

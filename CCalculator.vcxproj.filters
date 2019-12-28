@@ -60,9 +60,6 @@
     <ClCompile Include="getOperatorTie.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
-    <ClCompile Include="getFunction.c">
-      <Filter>Pliki źródłowe\Calculator</Filter>
-    </ClCompile>
     <ClCompile Include="bitmap.c">
       <Filter>Pliki źródłowe\Bitmap</Filter>
     </ClCompile>
@@ -109,6 +106,12 @@
       <Filter>Pliki źródłowe\String</Filter>
     </ClCompile>
     <ClCompile Include="trimString.c">
+      <Filter>Pliki źródłowe\String</Filter>
+    </ClCompile>
+    <ClCompile Include="isFunction.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="popString.c">
       <Filter>Pliki źródłowe\String</Filter>
     </ClCompile>
   </ItemGroup>

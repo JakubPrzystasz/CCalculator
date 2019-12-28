@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 /* Print array to std out*/
-void printArray(char** array, size_t* sizeOfArray) {
-	
+void printArray(void** array, size_t* sizeOfArray, Type type) {
+
 	//If array is empty
 	if (*sizeOfArray < 1 || array == NULL) {
 		printf("Array is empty\n");
@@ -12,8 +12,31 @@ void printArray(char** array, size_t* sizeOfArray) {
 	}
 
 	//Print each value in format: [index]->{value}
-	for (size_t i = 0;i < *sizeOfArray;i++) {
-		printf("[%zu]->{%s}\n", i, array[i]);
-	}
+	switch (type) {
+	case tString:
+		{
+			char** Array = (char**)array;
+			for (size_t i = 0; i < *sizeOfArray; i++) {
+				printf("[%zu]->{%s}\n", i, Array[i]);
+			}
+		}
+		break;
+	case tInt:
+		{
+			int** Array = (int**)array;
+			for (size_t i = 0; i < *sizeOfArray; i++) {
+				printf("[%zu]->{%i}\n", i, *Array[i]);
+			}
+		}
+		break;
+	case tDouble:
+		{
+			double** Array = (double**)array;
+			for (size_t i = 0; i < *sizeOfArray; i++) {
+				printf("[%zu]->{%lf}\n", i, *Array[i]);
+			}
+		}
+		break;
+	};
 
 }

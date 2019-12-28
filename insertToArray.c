@@ -5,11 +5,11 @@
 #include <string.h>
 
 /* Insert new value to array */
-char** insertToArray(char** array, char* value, size_t* sizeOfArray, size_t index) {
+void** insertToArray(void** array, char* value, size_t* sizeOfArray, size_t index, Type type) {
 	
 	//When array is empty append value
 	if (array == NULL && *sizeOfArray == 0) {
-		array = appendToArray(array, value, sizeOfArray);
+		array = appendToArray(array, value, sizeOfArray,type);
 		return array;
 	}
 
@@ -25,30 +25,64 @@ char** insertToArray(char** array, char* value, size_t* sizeOfArray, size_t inde
 	
 	//If index points to last element of array 
 	if (index == *sizeOfArray) {
-		array = appendToArray(array, value, sizeOfArray);
+		array = appendToArray(array, value, sizeOfArray,type);
 		return array;
 	}
 	
 	//Pointer to value
-	char* tmp = 0;
-	tmp = (char*)malloc((strlen((char*)value) + 1) * sizeof(char));
+	void* tmp = 0;
+	//Allocate memory for value
+	switch (type) {
+	case tString:
+		tmp = (char*)malloc((strlen((char*)value) + 1) * sizeof(char));
+		break;
+	case tInt:
+		tmp = (int*)malloc(sizeof(int));
+		break;
+	case tDouble:
+		tmp = (double*)malloc(sizeof(double));
+		break;
+	};
 
 	//Unable to allocate memory
 	if (tmp == NULL) {
-		freeArray(array, sizeOfArray);
+		freeArray(array, sizeOfArray,type);
 		return NULL;
 	}
 
-	strcpy(tmp, value);
+	//Copy value
+	switch (type) {
+	case tString:
+		strcpy(tmp, value);
+		break;
+	case tInt:
+		memcpy(tmp, value, sizeof(int));
+		break;
+	case tDouble:
+		memcpy(tmp, value, sizeof(double));
+		break;
+	};
+
+
+	//Temporary pointer to array
+	void** tmpArray = array;
 
 	//Append value to existing array
-	//Temporary pointer to array
-	char** tmpArray = array;
-	array = (char**)realloc(array, (*sizeOfArray + 1) * sizeof(*array));
+	switch (type) {
+	case tString:
+		array = (char**)realloc(array, (*sizeOfArray + 1) * sizeof(char*));
+		break;
+	case tInt:
+		array = (int**)realloc(array, (*sizeOfArray + 1) * sizeof(int*));
+		break;
+	case tDouble:
+		array = (double**)realloc(array, (*sizeOfArray + 1) * sizeof(double*));
+		break;
+	};
 
 	//Unable to allocate memory
 	if (array == NULL) {
-		freeArray(tmpArray, *sizeOfArray);
+		freeArray(tmpArray, *sizeOfArray,type);
 		return NULL;
 	}
 	

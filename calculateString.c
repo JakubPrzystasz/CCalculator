@@ -20,11 +20,11 @@ double calculateString(char* string) {
 	/*DEBUG*/printf("Expression: {%s}\n", string);/*DEBUG*/
 	/*DEBUG*/printf("Expression array:\n");/*DEBUG*/
 	expressionArray = parseString(string, &sizeOfExpression);
-	/*DEBUG*/printArray(expressionArray,&sizeOfExpression);/*DEBUG*/
+	/*DEBUG*/printArray(expressionArray,&sizeOfExpression,tString);/*DEBUG*/
 
 	/*DEBUG*/printf("\nRNP array:\n");/*DEBUG*/
 	rpnArray = toPostfix(expressionArray, &sizeOfExpression);
-	/*DEBUG*/printArray(rpnArray, &sizeOfExpression);/*DEBUG*/
+	/*DEBUG*/printArray(rpnArray, &sizeOfExpression,tString);/*DEBUG*/
 
 	return calculatePostfix(rpnArray,&sizeOfExpression);
 }

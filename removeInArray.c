@@ -6,7 +6,7 @@
 #include <string.h>
 
 /* Delete value at index */
-char** removeInArray(char** array, size_t* sizeOfArray, size_t index, bool deleteValue) {
+void** removeInArray(void** array, size_t* sizeOfArray, size_t index, bool deleteValue, Type type) {
 	
 	//If array is empty
 	if (array == NULL || *sizeOfArray < 1) {
@@ -25,23 +25,43 @@ char** removeInArray(char** array, size_t* sizeOfArray, size_t index, bool delet
 	//When index points to the last value of array,
 	//just pop last value
 	if (index + 1 == *sizeOfArray) {
-		array = popArray(array, sizeOfArray,deleteValue);
+		array = popArray(array, sizeOfArray,deleteValue, type);
 		return array;
 	}
 
-	//Append value to existing array
 	//Temporary pointer to array
-	char** tmpArray = array;
-	array = (char**)realloc(array, (*sizeOfArray - 1) * sizeof(*array));
+	void** tmpArray = array;
+
+	switch (type) {
+	case tString:
+		array = (char**)realloc(array, (*sizeOfArray - 1) * sizeof(char*));
+		break;
+	case tInt:
+		array = (int**)realloc(array, (*sizeOfArray - 1) * sizeof(int*));
+		break;
+	case tDouble:
+		array = (double**)realloc(array, (*sizeOfArray - 1) * sizeof(double*));
+		break;
+	};
 
 	//Unable to allocate memory
 	if (array == NULL) {
-		freeArray(tmpArray, *sizeOfArray);
+		freeArray(tmpArray, *sizeOfArray, type);
 		return NULL;
 	}
 
 	if (deleteValue == true) {
-		free(tmpArray[index]);
+		switch (type) {
+		case tString:
+			free((char*)tmpArray[index]);
+			break;
+		case tInt:
+			free((int*)tmpArray[index]);
+			break;
+		case tDouble:
+			free((double*)tmpArray[index]);
+			break;
+		}		
 	}
 
 	/*
@@ -58,7 +78,6 @@ char** removeInArray(char** array, size_t* sizeOfArray, size_t index, bool delet
 	for (size_t i = (*sizeOfArray - 3); i > index; i--) {
 		array[i] = tmpArray[(i+1)];
 	}
-
 
 	*sizeOfArray -= 1;
 

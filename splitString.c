@@ -27,7 +27,7 @@ char** splitString(char* string, const char delimiter, size_t* sizeOfArray) {
 		}
 
 		//Current character is a delimiter
-		array = appendToArray(array, tmp, sizeOfArray);
+		array = appendToArray(array, tmp, sizeOfArray, tString);
 		tmp = emptyString(tmp);
 	}
 

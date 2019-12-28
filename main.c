@@ -2,21 +2,27 @@
 #define _USE_MATH_DEFINES
 #include "calculator.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 int main(int argc, char** argv)
 {
 	char* string = 0;
-	size_t size = 0;
-	char** array = 0;
+	//string = appendToString(string,"!5");
 
-	array = appendToArray(array, "-2", &size);
-	array = appendToArray(array, "2", &size);
-	double x = calculateValue(array, subtraction);
-	
-	string = doubleToString(-44.34243);
-
+	string = doubleToString(-11.111);
 	printf("%s\n", string);
 
-	//printf("Result: {%lf}\n",calculateString(expression));
+	string = trimString(string, '0');
+	printf("%s\n", string);
+
+	string = emptyString(string);
+
+	string = appendToString(string,"HelloWorld!");
+	string = popString(string);
+	printf("%s\n", string);
+
+	//printf("%lf\n", calculateString(string));
 
 	return 0;
 }

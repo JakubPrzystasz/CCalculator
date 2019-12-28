@@ -3,16 +3,42 @@
 #include <stdlib.h>
 
 /* Delete array */
-void freeArray(char** array, size_t* sizeOfArray)
+void freeArray(void** array, size_t* sizeOfArray, Type type)
 {
-	//If array is not null
 	if (array != NULL && *sizeOfArray != NULL) {
-		//Delete each of value
-		for (size_t i = 0; i < *sizeOfArray; i++) {
-			if (array[i] != NULL) {
-				free(array[i]);
+		switch (type) {
+		case tString:
+		{
+			char** Array = (char**)array;
+			//Delete all values
+			for (size_t i = 0; i < *sizeOfArray; i++) {
+				if (Array[i] != NULL) {
+					free(Array[i]);
+				}
 			}
 		}
+		case tInt:
+		{
+			int** Array = (int**)array;
+			//Delete all values
+			for (size_t i = 0; i < *sizeOfArray; i++) {
+				if (Array[i] != NULL) {
+					free(Array[i]);
+				}
+			}
+		}
+		case tDouble:
+		{
+			double** Array = (double**)array;
+			//Delete all values
+			for (size_t i = 0; i < *sizeOfArray; i++) {
+				if (Array[i] != NULL) {
+					free(Array[i]);
+				}
+			}
+		}
+		break;
+		};
 	}
 
 	*sizeOfArray = 0;

@@ -13,8 +13,9 @@
 	void reverseString(char* string);
 	char* appendToString(char* string, char* value);
 	char* emptyString(char* string);
-	char* trimString(char* string);
-	char* intToString(const uint64_t value);
+	char* trimString(char* string,const char Char);
+	char* intToString(const int64_t value);
+	char* popString(char* string);
 	char* doubleToString(double value);
 	char** splitString(char* string, const char delimiter, size_t* sizeOfArray);
 

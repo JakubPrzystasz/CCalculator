@@ -23,13 +23,13 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 
 		//If token is a number
 		if (token == number) {
-			output = appendToArray(output, array[index], &sizeOfOutput);
+			output = appendToArray(output, array[index], &sizeOfOutput, tString);
 			continue;
 		}
 
 		//Jeœli symbol jest funkcj¹ w³ó¿ go na stos.
-		if (token == function) {
-			stack = appendToArray(stack, array[index], &sizeOfStack);
+		if (isFunction(token)) {
+			stack = appendToArray(stack, array[index], &sizeOfStack, tString);
 			continue;
 		}
 		
@@ -43,8 +43,8 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 			
 			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				if (stack != NULL && stack[i] != NULL && getObjectType(stack[i]) != leftBracket) {
-					output = appendToArray(output, stack[i], &sizeOfOutput);
-					stack = popArray(stack, &sizeOfStack, false);
+					output = appendToArray(output, stack[i], &sizeOfOutput, tString);
+					stack = popArray(stack, &sizeOfStack, false, tString);
 				}
 			}
 			continue;
@@ -52,7 +52,7 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 		
 		//Je¿eli symbol jest lewym nawiasem to w³ó¿ go na stos.
 		if (token == leftBracket) {
-			stack = appendToArray(stack, array[index], &sizeOfStack);
+			stack = appendToArray(stack, array[index], &sizeOfStack, tString);
 			continue;
 		}
 
@@ -67,11 +67,11 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 				if (stack != NULL && stack[i] != NULL) {
 					//usun nawias ze stosu 
 					if (getObjectType(stack[i]) == leftBracket) {
-						stack = popArray(stack, &sizeOfStack, true);
+						stack = popArray(stack, &sizeOfStack, true,tString);
 						continue;
 					} else {
-						output = appendToArray(output, stack[i], &sizeOfOutput);
-						stack = popArray(stack, &sizeOfStack, false);
+						output = appendToArray(output, stack[i], &sizeOfOutput,tString);
+						stack = popArray(stack, &sizeOfStack, false,tString);
 					}
 				} else {
 					break;
@@ -85,12 +85,12 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				if (stack != NULL && stack[i] != NULL) {;
 					if (getObjectType(stack[i]) == leftBracket) {
-						stack = popArray(stack, &sizeOfStack, true);
+						stack = popArray(stack, &sizeOfStack, true, tString);
 						continue;
 					}
-					if (getObjectType(stack[i]) == function) {
-						output = appendToArray(output, stack[i], &sizeOfOutput);
-						stack = popArray(stack, &sizeOfStack, false);
+					if (isFunction(getObjectType(stack[i]))) {
+						output = appendToArray(output, stack[i], &sizeOfOutput, tString);
+						stack = popArray(stack, &sizeOfStack, false, tString);
 					}
 				}
 			}
@@ -108,10 +108,10 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 				i wykonaj jeszcze raz 1)
 			2) w³ó¿ o1 na stos operatorów.
 		*/
-		if (token != number && token != function && token != undefined) {
+		if (token != number && !isFunction(token) && token != undefined) {
 			//stos pusty 
 			if (sizeOfStack == 0) {
-				stack = appendToArray(stack, array[index], &sizeOfStack);
+				stack = appendToArray(stack, array[index], &sizeOfStack, tString);
 				continue;
 			}
 			
@@ -119,7 +119,7 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 			
 			//priorytet o1, jest wieszy od priorytetu o2
 			if (getOperatorPriority(token) > getOperatorPriority(stackToken)) {
-				stack = appendToArray(stack, array[index], &sizeOfStack);
+				stack = appendToArray(stack, array[index], &sizeOfStack, tString);
 				continue;
 			}
 
@@ -129,7 +129,7 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 				//usun nawias jesli jest na stosie
 				stackToken = getObjectType(stack[i]);
 				if (getObjectType == leftBracket) {
-					stack = popArray(stack, &sizeOfStack, true);
+					stack = popArray(stack, &sizeOfStack, true, tString);
 					continue;
 				}
 
@@ -137,22 +137,22 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 				//lewostronnie ³¹czny
 				if (getOperatorTie(token) == 0) {
 					if (getOperatorPriority(token) <= getOperatorPriority(stackToken)) {
-						output = appendToArray(output, stack[i], &sizeOfOutput);
-						stack = popArray(stack, &sizeOfStack, false);
+						output = appendToArray(output, stack[i], &sizeOfOutput, tString);
+						stack = popArray(stack, &sizeOfStack, false, tString);
 					}
 				}
 
 				//prawostronnie ³¹czny
 				if (getOperatorTie(token) == 1) {
 					if (getOperatorPriority(token) < getOperatorPriority(stackToken)) {
-						output = appendToArray(output, stack[i], &sizeOfOutput);
-						stack = popArray(stack, &sizeOfStack, false);
+						output = appendToArray(output, stack[i], &sizeOfOutput, tString);
+						stack = popArray(stack, &sizeOfStack, false, tString);
 					}
 				}
 
 			}
 
-			stack = appendToArray(stack, array[index], &sizeOfStack);
+			stack = appendToArray(stack, array[index], &sizeOfStack, tString);
 		}
 
 		//end of loop 
@@ -166,7 +166,7 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 	*/
 
 	for (int i = sizeOfStack - 1;i >= 0;i--){
-		output = appendToArray(output, stack[i], &sizeOfOutput);
+		output = appendToArray(output, stack[i], &sizeOfOutput, tString);
 		free(stack[i]);
 	}
 

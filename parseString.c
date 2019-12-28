@@ -42,7 +42,7 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 	//When first character is '-' or '+' add 0 to output
 	//this will prevent from future errors in calculations
 	if (expression[0] == '-' || expression[0] == '+') {
-		array = appendToArray(array, "0", sizeOfArray);
+		array = appendToArray(array, "0", sizeOfArray, tString);
 	}
 
 	//Go through all string
@@ -54,11 +54,6 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 		//Type stored in char
 		charType = getObjectType(&exp);
 
-		//Break when occured undefined character
-		if (charType == undefined) {
-			break;
-		}
-
 		//Type in string
 		stringType = getObjectType(string);
 
@@ -69,11 +64,11 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 
 		//When expressions type is different
 		if (stringType != charType) {
-			array = appendToArray(array, string, sizeOfArray);
+			array = appendToArray(array, string, sizeOfArray, tString);
 
 			//when we need to add * betwen 
-			if (stringType == number && (charType == function || charType == leftBracket)) {
-				array = appendToArray(array, "*\0", sizeOfArray);
+			if (stringType == number && (isFunction(charType) || charType == leftBracket)) {
+				array = appendToArray(array, "*\0", sizeOfArray, tString);
 			}
 
 			string = emptyString(string);
@@ -83,8 +78,8 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 
 		if (stringType == charType) {
 			//Split two operators eg. ))
-			if (getObjectType(string) != number && getObjectType(string) != function) {
-				array = appendToArray(array, string, sizeOfArray);
+			if (getObjectType(string) != number && !isFunction(getObjectType(string))) {
+				array = appendToArray(array, string, sizeOfArray, tString);
 				string = emptyString(string);
 				string = appendToString(string, &exp);
 				continue;
@@ -97,7 +92,7 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 
 	//Add to array the last expression from string
 	if (string != NULL) {
-		array = appendToArray(array, string, sizeOfArray);
+		array = appendToArray(array, string, sizeOfArray, tString);
 	}
 
 	return array;
