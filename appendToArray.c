@@ -64,7 +64,7 @@ void** appendToArray(void** array, void* value, size_t* sizeOfArray, Type type) 
 		memcpy(array[*sizeOfArray], value, sizeof(int));
 		break;
 	case tDouble:
-		memcpy(array[*sizeOfArray], value, sizeof(int));
+		memcpy(array[*sizeOfArray], value, sizeof(double));
 		break;
 	};
 

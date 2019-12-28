@@ -15,12 +15,14 @@ char* doubleToString(double value) {
     //Split floating point number
     //to integer part and fractional part
 
-    value = valueSign ? value : value * -1;
+    if (!valueSign) {
+        value = -1 * value;
+    }
 
-    uint64_t intPart = (uint64_t)value;
+    int intPart = (int)value;
 
     //Take maximum precision of double - 15 digits
-    uint64_t fracPart = (uint64_t)((value - (double)intPart)*1000000000000000);
+    int fracPart = (int)((value - (double)intPart)*1000000000000000);
 
     if (!valueSign) {
         string = appendToString(string, "-");

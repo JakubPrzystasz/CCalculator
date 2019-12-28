@@ -7,22 +7,12 @@
 
 int main(int argc, char** argv)
 {
+
 	char* string = 0;
-	//string = appendToString(string,"!5");
+	
+	string = appendToString(string,"pi/2");
 
-	string = doubleToString(-11.111);
-	printf("%s\n", string);
-
-	string = trimString(string, '0');
-	printf("%s\n", string);
-
-	string = emptyString(string);
-
-	string = appendToString(string,"HelloWorld!");
-	string = popString(string);
-	printf("%s\n", string);
-
-	//printf("%lf\n", calculateString(string));
+	printf("%lf\n", calculateString(string));
 
 	return 0;
 }

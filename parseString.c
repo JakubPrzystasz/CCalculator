@@ -34,10 +34,10 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 	char* string = 0;
 
 	//Type of char
-	objectType charType = undefined;
+	objectType typeOfChar = undefined;
 	
 	//Type of string 
-	objectType stringType = undefined;
+	objectType typeOfString = undefined;
 
 	//When first character is '-' or '+' add 0 to output
 	//this will prevent from future errors in calculations
@@ -52,10 +52,10 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 		char exp[2] = { expression[i],'\0' };
 		
 		//Type stored in char
-		charType = getObjectType(&exp);
+		typeOfChar = getObjectType(&exp);
 
 		//Type in string
-		stringType = getObjectType(string);
+		typeOfString = getObjectType(string);
 
 		if (string == NULL) {
 			string = appendToString(string, &exp);
@@ -63,12 +63,17 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 		}
 
 		//When expressions type is different
-		if (stringType != charType) {
+		if (typeOfChar != typeOfString) {
 			array = appendToArray(array, string, sizeOfArray, tString);
 
 			//when we need to add * betwen 
-			if (stringType == number && (isFunction(charType) || charType == leftBracket)) {
+			if (typeOfString == number && (isFunction(typeOfChar) || typeOfChar == leftBracket)) {
 				array = appendToArray(array, "*\0", sizeOfArray, tString);
+			}
+
+			//Add 0 when you have 5+(-4)
+			if (typeOfString == leftBracket && typeOfChar == subtraction) {
+				array = appendToArray(array, "0\0", sizeOfArray, tString);
 			}
 
 			string = emptyString(string);
@@ -76,13 +81,11 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 			continue;
 		}
 
-		if (stringType == charType) {
-			//Split two operators eg. ))
-			if (getObjectType(string) != number && !isFunction(getObjectType(string))) {
+		if (typeOfString == typeOfChar) {
+			//Split two brackets
+			if (typeOfChar == leftBracket || typeOfChar == rightBracket) {
 				array = appendToArray(array, string, sizeOfArray, tString);
 				string = emptyString(string);
-				string = appendToString(string, &exp);
-				continue;
 			}
 			string = appendToString(string, &exp);
 			continue;
@@ -90,7 +93,7 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 
 	}
 
-	//Add to array the last expression from string
+	//Add to array value of string
 	if (string != NULL) {
 		array = appendToArray(array, string, sizeOfArray, tString);
 	}

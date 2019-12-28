@@ -132,6 +132,7 @@
     <ClCompile Include="doubleToString.c" />
     <ClCompile Include="editInArray.c" />
     <ClCompile Include="emptyString.c" />
+    <ClCompile Include="factorialFunction.c" />
     <ClCompile Include="freeArray.c" />
     <ClCompile Include="getObjectType.c" />
     <ClCompile Include="getOperatorPriority.c" />
@@ -142,6 +143,7 @@
     <ClCompile Include="isFunction.c" />
     <ClCompile Include="isNumber.c" />
     <ClCompile Include="isOperator.c" />
+    <ClCompile Include="logarithmFunction.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="parseString.c" />
     <ClCompile Include="popArray.c" />

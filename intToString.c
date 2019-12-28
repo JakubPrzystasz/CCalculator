@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 /* Convert integer to readable string */
-char* intToString(int64_t value) {
+char* intToString(int value) {
 	
 	//Sign of value
 	bool valSign = value >= 0 ? true : false;

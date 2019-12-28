@@ -114,6 +114,12 @@
     <ClCompile Include="popString.c">
       <Filter>Pliki źródłowe\String</Filter>
     </ClCompile>
+    <ClCompile Include="factorialFunction.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="logarithmFunction.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculator.h">

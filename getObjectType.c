@@ -46,10 +46,16 @@ objectType getObjectType(char* string) {
 				return comma;
 			case '!':
 				return factorial;
+			case 'e':
+				return constE;
 		}
 	}
 
 	//Function
+
+	if (strcmp("pi", string) == 0) {
+		return constPi;
+	}
 
 	if (strcmp("log", string) == 0) {
 		return flog;

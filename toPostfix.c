@@ -14,45 +14,45 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 	char** stack = 0;
 	size_t sizeOfStack = 0;
 	
-	objectType token = 0;
-	objectType stackToken = 0;
+	objectType typeOfValue = 0;
+	objectType typeOfStackValue = 0;
 
 	for (size_t index = 0;index < *sizeOfArray;index++) {
 
-		token = getObjectType(array[index]);
+		typeOfValue = getObjectType(array[index]);
 
-		//If token is a number
-		if (token == number) {
+		//If value is a number
+		if (typeOfValue == number) {
 			output = appendToArray(output, array[index], &sizeOfOutput, tString);
 			continue;
 		}
 
+		//Je¿eli symbol jest lewym nawiasem to w³ó¿ go na stos.
+		if (typeOfValue == leftBracket) {
+			stack = appendToArray(stack, array[index], &sizeOfStack, tString);
+			continue;
+		}
+
 		//Jeœli symbol jest funkcj¹ w³ó¿ go na stos.
-		if (isFunction(token)) {
+		if (isFunction(typeOfValue)) {
 			stack = appendToArray(stack, array[index], &sizeOfStack, tString);
 			continue;
 		}
 		
 		//Jeœli symbol jest znakiem oddzielaj¹cym argumenty funkcji (przecinek):
-		if (token == comma) {
+		if (typeOfValue == comma) {
 			/*Dopóki najwy¿szy element stosu nie jest lewym nawiasem,
 			zdejmij element ze stosu i dodaj go do kolejki wyjœcie.
 			Jeœli lewy nawias nie zosta³ napotkany oznacza to, ¿e znaki
 			oddzielaj¹ce zosta³y postawione w z³ym miejscu lub 
 			nawiasy s¹ Ÿle umieszczone.*/
-			
-			for (int i = sizeOfStack - 1;i >= 0;i--) {
+
+			/*for (int i = sizeOfStack - 1;i >= 0;i--) {
 				if (stack != NULL && stack[i] != NULL && getObjectType(stack[i]) != leftBracket) {
 					output = appendToArray(output, stack[i], &sizeOfOutput, tString);
 					stack = popArray(stack, &sizeOfStack, false, tString);
 				}
-			}
-			continue;
-		}
-		
-		//Je¿eli symbol jest lewym nawiasem to w³ó¿ go na stos.
-		if (token == leftBracket) {
-			stack = appendToArray(stack, array[index], &sizeOfStack, tString);
+			}*/
 			continue;
 		}
 
@@ -62,7 +62,7 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 		lewym nawiasem, kiedy dojdziesz do tego miejsca zdejmij lewy nawias ze 
 		stosu bez dok³adania go do kolejki wyjœcie. 
 		*/
-		if (token == rightBracket) {
+		if (typeOfValue == rightBracket) {
 			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				if (stack != NULL && stack[i] != NULL) {
 					//usun nawias ze stosu 
@@ -77,6 +77,7 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 					break;
 				}
 			}
+			continue;
 			/*
 			Teraz, jeœli najwy¿szy 	element na stosie jest funkcj¹,
 			tak¿e do³ó¿ go do kolejki wyjœcie. Jeœli stos zostanie opró¿niony 
@@ -108,17 +109,17 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 				i wykonaj jeszcze raz 1)
 			2) w³ó¿ o1 na stos operatorów.
 		*/
-		if (token != number && !isFunction(token) && token != undefined) {
+		if (typeOfValue != number && !isFunction(typeOfValue) && typeOfValue != undefined) {
 			//stos pusty 
 			if (sizeOfStack == 0) {
 				stack = appendToArray(stack, array[index], &sizeOfStack, tString);
 				continue;
 			}
 			
-			stackToken = getObjectType(stack[sizeOfStack - 1]);
+			typeOfStackValue = getObjectType(stack[sizeOfStack - 1]);
 			
 			//priorytet o1, jest wieszy od priorytetu o2
-			if (getOperatorPriority(token) > getOperatorPriority(stackToken)) {
+			if (getOperatorPriority(typeOfValue) > getOperatorPriority(typeOfStackValue)) {
 				stack = appendToArray(stack, array[index], &sizeOfStack, tString);
 				continue;
 			}
@@ -127,7 +128,7 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 			//wiekszy lub rowny priorytet na stosie
 			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				//usun nawias jesli jest na stosie
-				stackToken = getObjectType(stack[i]);
+				typeOfStackValue = getObjectType(stack[i]);
 				if (getObjectType == leftBracket) {
 					stack = popArray(stack, &sizeOfStack, true, tString);
 					continue;
@@ -135,26 +136,25 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 
 
 				//lewostronnie ³¹czny
-				if (getOperatorTie(token) == 0) {
-					if (getOperatorPriority(token) <= getOperatorPriority(stackToken)) {
+				if (getOperatorTie(typeOfValue) == 0) {
+					if (getOperatorPriority(typeOfValue) <= getOperatorPriority(typeOfStackValue)) {
 						output = appendToArray(output, stack[i], &sizeOfOutput, tString);
 						stack = popArray(stack, &sizeOfStack, false, tString);
 					}
 				}
 
 				//prawostronnie ³¹czny
-				if (getOperatorTie(token) == 1) {
-					if (getOperatorPriority(token) < getOperatorPriority(stackToken)) {
+				if (getOperatorTie(typeOfValue) == 1) {
+					if (getOperatorPriority(typeOfValue) < getOperatorPriority(typeOfStackValue)) {
 						output = appendToArray(output, stack[i], &sizeOfOutput, tString);
 						stack = popArray(stack, &sizeOfStack, false, tString);
 					}
 				}
 
 			}
-
 			stack = appendToArray(stack, array[index], &sizeOfStack, tString);
+			continue;
 		}
-
 		//end of loop 
 	}
 

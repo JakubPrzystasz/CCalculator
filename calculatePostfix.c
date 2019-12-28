@@ -8,12 +8,16 @@
 /* Compute value of RPN expression */
 double calculatePostfix(char** array, size_t* sizeOfArray) {
 	
-	char** stack = 0;
+	//Stack of operands
+	double** stack = 0;
+	//Size of stack
 	size_t sizeOfStack = 0;
 
-	char* string = 0;
-
+	//Type of object in array
 	objectType type = undefined;
+
+	//Temporary value of operand
+	double tmp = 0;
 
 	/*
 	    Dla wszystkich symboli z wyra¿enia ONP wykonuj:
@@ -32,9 +36,11 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 
 		type = getObjectType(array[index]);
 
+		tmp = atof(array[index]);
+
 		/*jeœli i-ty symbol jest liczb¹, to od³ó¿ go na stos*/
 		if (type == number) {
-			stack = appendToArray(stack, array[index], &sizeOfStack, tString);
+			stack = appendToArray(stack, &tmp, &sizeOfStack, tDouble);
 			continue;
 		}
 
@@ -53,13 +59,13 @@ double calculatePostfix(char** array, size_t* sizeOfArray) {
 		zdejmij ze stosu oczekiwan¹ liczbê parametrów funkcji(ozn.a1...an)
 			od³ó¿ na stos wynik funkcji dla parametrów a1...an
 		*/
-		if (isFunction(type) && sizeOfStack > 1) {
+		if (isFunction(type)) {
 			stack = calculateValue(stack, &sizeOfStack, type);
 		}
 	}
 
-	if (stack != NULL) {
-		return atof(stack[0]);
+	if (stack != NULL && sizeOfStack == 1) {
+		return *stack[0];
 	}
 	
 	return  0;
