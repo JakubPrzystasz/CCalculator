@@ -35,9 +35,11 @@
 
 	bool isOperator(objectType operator);
 	bool isFunction(objectType operator);
+	bool isConst(objectType operator);
 	byte getOperatorPriority(objectType operator);
 	byte getOperatorTie(objectType operator);
 	objectType getObjectType(char* string);
+	char* getValue(objectType operator);
 	char** parseString(char* string,size_t* sizeOfArray);
 	char** toPostfix(char** array, size_t* sizeOfArray);
 	double factorialFunction(double* value);

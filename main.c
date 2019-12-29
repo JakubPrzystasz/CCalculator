@@ -8,11 +8,9 @@
 int main(int argc, char** argv)
 {
 
-	char* string = 0;
-	
-	string = appendToString(string,"pi/2");
-
-	printf("%lf\n", calculateString(string));
+	if (argc == 2) {
+		printf("%lf\n", calculateString(argv[1]));
+	}
 
 	return 0;
 }

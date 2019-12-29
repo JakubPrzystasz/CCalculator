@@ -49,20 +49,6 @@ double** calculateValue(double** array,size_t* sizeOfArray, objectType operator)
 	//Calculate value of function
 	if (isFunction(operator)) {
 		switch (operator) {
-		case constE:
-		{
-			double tmp = M_E;
-			array = popArray(array, sizeOfArray, true, tDouble);
-			array = appendToArray(array, &tmp, sizeOfArray, tDouble);
-		}
-			break;
-		case constPi:
-		{
-			double tmp = M_PI;
-			array = popArray(array, sizeOfArray, true, tDouble);
-			array = appendToArray(array, &tmp, sizeOfArray, tDouble);
-		}
-			break;
 		case factorial:
 		{
 			if (*sizeOfArray > 0) {

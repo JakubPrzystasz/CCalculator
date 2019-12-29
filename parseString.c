@@ -62,6 +62,41 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 			continue;
 		}
 
+		/*if (isFunction(typeOfString) && typeOfChar != leftBracket) {
+
+			array = appendToArray(array, string, sizeOfArray, tString);
+			string = emptyString(string);
+			
+			string = appendToString(string, "(");
+			array = appendToArray(array, string, sizeOfArray, tString);
+			string = emptyString(string);
+			
+			for (i; i < sizeOfExpression; i++) {
+				exp[0] = expression[i];
+				typeOfChar = getObjectType(&exp);
+				if (!isOperator(typeOfChar)) {
+					string = appendToString(string, &exp);
+				} else {
+					array = appendToArray(array, string, sizeOfArray, tString);
+					string = emptyString(string);
+
+					string = appendToString(string, ")");
+					array = appendToArray(array, string, sizeOfArray, tString);
+					string = emptyString(string);
+					break;
+				}
+			}
+			if (i == sizeOfExpression) {
+				array = appendToArray(array, string, sizeOfArray, tString);
+				string = emptyString(string);
+
+				string = appendToString(string, ")");
+				array = appendToArray(array, string, sizeOfArray, tString);
+				string = emptyString(string);
+			}
+			continue;
+		}*/
+
 		//When expressions type is different
 		if (typeOfChar != typeOfString) {
 			array = appendToArray(array, string, sizeOfArray, tString);
@@ -71,7 +106,7 @@ char** parseString(char* expression, size_t* sizeOfArray) {
 				array = appendToArray(array, "*\0", sizeOfArray, tString);
 			}
 
-			//Add 0 when you have 5+(-4)
+			// 5+(-4) =>> 5+(0-4)
 			if (typeOfString == leftBracket && typeOfChar == subtraction) {
 				array = appendToArray(array, "0\0", sizeOfArray, tString);
 			}

@@ -120,6 +120,12 @@
     <ClCompile Include="logarithmFunction.c">
       <Filter>Pliki źródłowe\Calculator</Filter>
     </ClCompile>
+    <ClCompile Include="isConst.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="getValue.c">
+      <Filter>Pliki źródłowe\Calculator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculator.h">

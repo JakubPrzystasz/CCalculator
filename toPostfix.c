@@ -33,6 +33,11 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 			continue;
 		}
 
+		if (isConst(typeOfValue)) {
+			output = appendToArray(output, getValue(typeOfValue), &sizeOfOutput, tString);
+			continue;
+		}
+
 		//Jeœli symbol jest funkcj¹ w³ó¿ go na stos.
 		if (isFunction(typeOfValue)) {
 			stack = appendToArray(stack, array[index], &sizeOfStack, tString);
@@ -47,12 +52,12 @@ char** toPostfix(char** array, size_t* sizeOfArray) {
 			oddzielaj¹ce zosta³y postawione w z³ym miejscu lub 
 			nawiasy s¹ Ÿle umieszczone.*/
 
-			/*for (int i = sizeOfStack - 1;i >= 0;i--) {
+			for (int i = sizeOfStack - 1;i >= 0;i--) {
 				if (stack != NULL && stack[i] != NULL && getObjectType(stack[i]) != leftBracket) {
 					output = appendToArray(output, stack[i], &sizeOfOutput, tString);
 					stack = popArray(stack, &sizeOfStack, false, tString);
 				}
-			}*/
+			}
 			continue;
 		}
 

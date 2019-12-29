@@ -137,8 +137,10 @@
     <ClCompile Include="getObjectType.c" />
     <ClCompile Include="getOperatorPriority.c" />
     <ClCompile Include="getOperatorTie.c" />
+    <ClCompile Include="getValue.c" />
     <ClCompile Include="insertToArray.c" />
     <ClCompile Include="intToString.c" />
+    <ClCompile Include="isConst.c" />
     <ClCompile Include="isDigit.c" />
     <ClCompile Include="isFunction.c" />
     <ClCompile Include="isNumber.c" />

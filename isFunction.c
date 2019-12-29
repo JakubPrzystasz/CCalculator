@@ -4,7 +4,7 @@
 
 bool isFunction(objectType operator) {
 
-	if (!isOperator(operator) && operator != undefined && operator != number && 
+	if (!isOperator(operator) && !isConst(operator) && operator != undefined && operator != number && 
 		operator != comma && operator != leftBracket && operator != rightBracket) {
 		return true;
 	}
