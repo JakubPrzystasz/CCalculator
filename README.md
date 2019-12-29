@@ -10,6 +10,7 @@ I use Visual C++ compiler, in my case everything compiles.
 ![Screenshot](https://i.imgur.com/sts8PBs.png)
 ## Usage
 Just pass math as first argument in command line, i.e. CCalculator.exe 2+2
+<bold>Put string in quotes to make sure every character will be passed to program</bold>
 ## TODO List
 - debug the code
 - add LaTex support
